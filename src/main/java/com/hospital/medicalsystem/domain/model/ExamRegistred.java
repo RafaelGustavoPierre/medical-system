@@ -1,5 +1,6 @@
 package com.hospital.medicalsystem.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -32,4 +33,7 @@ public class ExamRegistred {
     @ManyToOne
     private Exam exam;
 
+    @JsonIgnore
+    @ManyToOne
+    private Patient patient;
 }
