@@ -26,7 +26,9 @@ public class ExamRegistred {
     private BigDecimal price;
 
     @NotNull
-    private OffsetDateTime timeRegistred;
+    private OffsetDateTime startTime;
+
+    private OffsetDateTime endTime;
 
     @Valid
     @NotNull

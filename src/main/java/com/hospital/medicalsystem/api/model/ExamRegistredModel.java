@@ -12,7 +12,8 @@ public class ExamRegistredModel {
 
     private Long id;
     private BigDecimal price;
-    private OffsetDateTime timeRegistred;
+    private OffsetDateTime startTime;
+    private OffsetDateTime endTime;
     private ExamModel exam;
 
 }
