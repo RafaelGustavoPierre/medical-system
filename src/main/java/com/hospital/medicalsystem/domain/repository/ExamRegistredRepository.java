@@ -14,4 +14,6 @@ public interface ExamRegistredRepository extends JpaRepository<ExamRegistred, Lo
     @Query("FROM ExamRegistred er WHERE er.patient.id = :id")
     List<ExamRegistred> findByPatientId(@Param("id") Long id);
 
+    @Query("FROM ExamRegistred er WHERE er.patient.id = :id AND er.endTime IS NULL")
+    ExamRegistred findActiveExamByPatientId(@Param("id") Long id);
 }
