@@ -12,7 +12,7 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
 
-    public Patient findByPatientId(String id) {
+    public Patient findByPatientId(Long id) {
         Patient patient = patientRepository.findByPatientId(id);
         if (patient == null) {
             throw new EntityNotFoundException(String.format("Paciente de ID %s não foi encontrado!", id));

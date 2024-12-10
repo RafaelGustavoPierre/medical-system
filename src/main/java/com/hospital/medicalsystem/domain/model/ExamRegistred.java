@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -16,7 +15,6 @@ import java.time.OffsetDateTime;
 @Setter
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 public class ExamRegistred {
 
     @Id
@@ -33,7 +31,6 @@ public class ExamRegistred {
     private OffsetDateTime endTime;
 
     @Valid
-    @NotNull
     @ManyToOne
     private Exam exam;
 

@@ -1,5 +1,6 @@
 package com.hospital.medicalsystem.api.exceptionhandler;
 
+import com.hospital.medicalsystem.domain.exception.ActiveExamConflictException;
 import com.hospital.medicalsystem.domain.exception.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> entityNotFoundException(EntityNotFoundException ex, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ProblemType problemType = ProblemType.ENTITY_NOT_FOUND;
+        String detail = ex.getMessage();
+
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(ActiveExamConflictException.class)
+    public ResponseEntity<?> activeExamConflictException(ActiveExamConflictException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ProblemType problemType = ProblemType.EXAM_ACTIVE_CONFLICT;
         String detail = ex.getMessage();
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();

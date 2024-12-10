@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface RemedieRegistredRepository extends JpaRepository<RemedieRegistred, Long> {
 
-    @Query("FROM RemedieRegistred rr WHERE rr.patient.id = :id")
+    @Query("FROM RemedieRegistred rr WHERE rr.patient.id = :id ORDER BY rr.id DESC")
     List<RemedieRegistred> findByPatientId(@Param("id") Long id);
 
 }

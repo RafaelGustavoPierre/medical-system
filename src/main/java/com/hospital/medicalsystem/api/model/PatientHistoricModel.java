@@ -1,6 +1,5 @@
 package com.hospital.medicalsystem.api.model;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

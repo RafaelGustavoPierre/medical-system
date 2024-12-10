@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     @Query("FROM Patient p WHERE p.id = :id")
-    Patient findByPatientId(@Param("id") String id);
+    Patient findByPatientId(@Param("id") Long id);
 
 
 }

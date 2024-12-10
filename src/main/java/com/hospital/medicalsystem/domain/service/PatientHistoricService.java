@@ -20,7 +20,7 @@ public class PatientHistoricService {
     private final ExamRegistredRepository examRegistredRepository;
     private final RemedieRegistredRepository remedieRegistredRepository;
 
-    public PatientHistoric findPatientHistoric(String id) {
+    public PatientHistoric findPatientHistoric(Long id) {
         Patient patient = patientService.findByPatientId(id);
 
         List<ExamRegistred> examRegistred = examRegistredRepository.findByPatientId(patient.getId());

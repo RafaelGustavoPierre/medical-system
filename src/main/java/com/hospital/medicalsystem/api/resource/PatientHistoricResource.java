@@ -18,7 +18,7 @@ public class PatientHistoricResource {
     private final PatientHistoricAssembler patientHistoricAssembler;
 
     @GetMapping("/{id}")
-    public PatientHistoricModel findPatientHistoric(@PathVariable String id) {
+    public PatientHistoricModel findPatientHistoric(@PathVariable Long id) {
         return patientHistoricAssembler.toModel(patientHistoricService.findPatientHistoric(id));
     }
 
