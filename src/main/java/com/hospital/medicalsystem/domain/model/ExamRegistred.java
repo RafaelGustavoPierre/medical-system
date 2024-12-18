@@ -36,4 +36,9 @@ public class ExamRegistred {
 
     @ManyToOne
     private Patient patient;
+
+    @Valid
+    @ManyToOne
+    private Worker worker;
+
 }

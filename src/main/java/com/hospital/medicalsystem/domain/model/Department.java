@@ -1,8 +1,10 @@
 package com.hospital.medicalsystem.domain.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Exam {
+public class Department {
 
     @Id
     @EqualsAndHashCode.Include
@@ -20,13 +22,5 @@ public class Exam {
 
     @NotBlank
     private String name;
-
-    @NotBlank
-    private String description;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
 
 }

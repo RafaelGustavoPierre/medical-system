@@ -4,6 +4,7 @@ import com.hospital.medicalsystem.api.assembler.PatientExamRegistredAssembler;
 import com.hospital.medicalsystem.api.model.PatientExamRegistredModel;
 import com.hospital.medicalsystem.api.model.input.ExamRegistredInput;
 import com.hospital.medicalsystem.domain.service.PatientExamService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class PatientExamResource {
 
 
     @PostMapping("/start-exam")
-    public PatientExamRegistredModel startExam(@RequestBody ExamRegistredInput examRegistredInput) {
+    public PatientExamRegistredModel startExam(@Valid @RequestBody ExamRegistredInput examRegistredInput) {
         return examRegistredAssembler.toModel(patientExamService.startExam(examRegistredInput));
     }
 
