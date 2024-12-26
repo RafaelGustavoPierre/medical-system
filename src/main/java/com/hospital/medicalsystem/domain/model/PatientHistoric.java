@@ -12,5 +12,5 @@ public class PatientHistoric {
     private Patient patient;
     private List<ExamRegistred> examRegistred;
     private List<RemedieRegistred> remedieRegistred;
-
+    private PatientRecord patientRecord;
 }

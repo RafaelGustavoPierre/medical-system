@@ -1,0 +1,1 @@
+INSERT INTO patient_record (patient_id, worker_id, observation) VALUES (2, 4, "Fratura na perna esquerda");

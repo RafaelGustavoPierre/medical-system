@@ -10,7 +10,7 @@ import java.util.List;
 public class PatientHistoricModel {
 
     private PatientModel patient;
+    private PatientRecordModel patientRecord;
     private List<ExamRegistredModel> examRegistred;
     private List<RemedieRegistredModel> remedieRegistred;
-
 }
