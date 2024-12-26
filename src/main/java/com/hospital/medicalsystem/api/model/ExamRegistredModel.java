@@ -15,5 +15,5 @@ public class ExamRegistredModel {
     private OffsetDateTime startTime;
     private OffsetDateTime endTime;
     private ExamModel exam;
-
+    private WorkerModel worker;
 }

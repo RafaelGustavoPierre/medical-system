@@ -44,6 +44,7 @@ public class PatientExamService {
             throw new EntityConflictException(String.format(WORKER_IS_NOT_DEPARTMENT, worker.getName()));
         }
 
+
         examRegistredInput.setStartTime(OffsetDateTime.now());
         ExamRegistred examRegistredDomain = examRegistredRepository.save(examRegistredDisassembler.toModel(examRegistredInput));
 
