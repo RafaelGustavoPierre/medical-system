@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -39,5 +40,13 @@ public class RemedieRegistred {
     @JsonIgnore
     @ManyToOne
     private Patient patient;
+
+    public String getTimeRegistredString() {
+        if (timeRegistred != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            return timeRegistred.format(formatter);
+        }
+        return "";
+    }
 
 }

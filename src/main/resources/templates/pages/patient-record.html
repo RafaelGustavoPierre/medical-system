@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prontuário do Paciente</title>
+    <style>
+        * {
+            font-family: Arial, 'sans-serif';
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: auto;
+            width: 80%;
+            max-width: 980px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+
+        .header .info {
+            flex-grow: 1;
+        }
+
+        .header .info p {
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        .table td:last-child {
+            text-align: center;
+        }
+
+        .observation {
+            margin-top: 20px;
+        }
+
+        .observation textarea {
+            width: 97.5%;
+            height: 50px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            font-family: Arial, 'sans-serif';
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="../../static/images/mock_foto.jpg" th:src="@{/images/mock_foto.jpg}" alt="Foto do Paciente">
+        <div class="info">
+            <p><strong>Nome do Paciente:</strong> <span th:text="${patient.name}">João da Silva</span></p>
+            <p><strong>Idade:</strong> 35 anos</p>
+            <p><strong>Prontuário de Código:</strong> 123456</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Médico Responsável</h2>
+        <p><strong>Nome:</strong> <span th:text="${patientRecord.worker.name}">Kariane Almofada</span></p>
+        <p><strong>Departamento:</strong> Radiology</p>
+    </div>
+
+        <div class="observation">
+            <h2>Observações</h2>
+            <textarea placeholder="Digite aqui as observações do médico sobre o paciente..." th:text="${patientRecord.observation}"></textarea>
+        </div>
+
+    <div class="section">
+        <h2>Histórico de Exames</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Exame</th>
+                <th>Descrição</th>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+                <th>Preço</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exam : ${examRegistred}">
+                <td th:text="${exam.exam.name}">Hemograma Completo</td>
+                <td th:text="${exam.exam.description}">Avalia glóbulos vermelhos, glóbulos brancos e plaquetas.</td>
+                <td th:text="${#dates.format(exam.startTimeString, 'dd/MM/yyyy HH:mm')}">26/12/2024</td>
+                <td th:text="${#dates.format(exam.endTimeString, 'dd/MM/yyyy HH:mm')}">26/12/2024</td>
+                <td th:text="${#numbers.formatCurrency(exam.price)}">189.99</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Histórico de Medicamentos</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Medicamento</th>
+                <th>Descrição</th>
+                <th>Qtd.</th>
+                <th>Data Registro</th>
+                <th>Preço</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="remedie : ${remedieRegistred}">
+                <td th:text="${remedie.remedie.name}">Insulina Regular</td>
+                <td th:text="${remedie.remedie.description}" style="max-width: 550px;">Reduz os níveis de glicose no sangue.</td>
+                <td th:text="${remedie.quantity}">1</td>
+                <td th:text="${#dates.format(remedie.timeRegistredString, 'dd/MM/yyyy HH:mm')}">26/12/2024</td>
+                <td th:text="${#numbers.formatCurrency(remedie.price)}">189.99</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>
