@@ -2,13 +2,12 @@ package com.hospital.medicalsystem.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class RemedieRegistred {
+public class PatientHistory {
 
     @Id
     @EqualsAndHashCode.Include
@@ -24,29 +23,33 @@ public class RemedieRegistred {
     private Long id;
 
     @NotNull
-    private Long quantity;
+    private OffsetDateTime dateAdmission;
 
-    @NotNull
-    private BigDecimal price;
+    private OffsetDateTime dateDischarge;
 
-    @NotNull
-    private OffsetDateTime timeRegistred;
-
-    @Valid
-    @NotNull
-    @ManyToOne
-    private Remedie remedie;
+    @NotBlank
+    private String status;
 
     @JsonIgnore
-    @ManyToOne
-    private PatientHistory patientHistory;
+    @OneToOne
+    private Patient patient;
 
-    public String getTimeRegistredString() {
-        if (timeRegistred != null) {
+    @OneToOne
+    private Worker worker;
+
+    public String getDateAdmissionString() {
+        if (dateAdmission != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            return timeRegistred.format(formatter);
+            return dateAdmission.format(formatter);
         }
         return "";
     }
 
+    public String getDateDischargeString() {
+        if (dateDischarge != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            return dateDischarge.format(formatter);
+        }
+        return "";
+    }
 }

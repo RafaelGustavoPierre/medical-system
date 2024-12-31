@@ -1,10 +1,10 @@
 package com.hospital.medicalsystem.api.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -13,7 +13,10 @@ public class RemedieRegistredModel {
     private Long id;
     private Long quantity;
     private BigDecimal price;
-    private OffsetDateTime timeRegistred;
+
+    @JsonProperty("timeRegistred")
+    private String timeRegistredString;
+
     private RemedieModel remedie;
 
 }

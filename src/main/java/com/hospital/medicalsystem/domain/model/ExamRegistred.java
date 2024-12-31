@@ -1,5 +1,6 @@
 package com.hospital.medicalsystem.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -34,27 +35,26 @@ public class ExamRegistred {
     @ManyToOne
     private Exam exam;
 
-    @ManyToOne
-    private Patient patient;
-
     @Valid
     @ManyToOne
     private Worker worker;
 
-    // Método para obter startTime como String
+    @JsonIgnore
+    @ManyToOne
+    private PatientHistory patientHistory;
+
     public String getStartTimeString() {
         if (startTime != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            return startTime.format(formatter);  // Formata a data no padrão desejado
+            return startTime.format(formatter);
         }
         return "";
     }
 
-    // Método para obter startTime como String
     public String getEndTimeString() {
         if (endTime != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            return endTime.format(formatter);  // Formata a data no padrão desejado
+            return endTime.format(formatter);
         }
         return "";
     }

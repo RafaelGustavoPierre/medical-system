@@ -15,7 +15,7 @@ public class PatientRecordService {
     private final PatientRecordRepository patientRecordRepository;
 
     public PatientRecord findPatientByRecord(Long id) {
-        var record = patientRecordRepository.findByPatientId(id);
+        var record = patientRecordRepository.findByPatientHistoryId(id);
         if (record == null)
             throw new EntityNotFoundException(String.format(REGISTERED_NOT_FOUND, id));
 

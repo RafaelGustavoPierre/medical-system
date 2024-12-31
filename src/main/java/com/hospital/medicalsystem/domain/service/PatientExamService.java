@@ -33,10 +33,10 @@ public class PatientExamService {
     public ExamRegistred startExam(ExamRegistredInput examRegistredInput) {
          var patient = patientService.findByPatientId(examRegistredInput.getPatient().getId());
          var activeExam = examRegistredService.findActiveExam(patient.getId());
-        if (activeExam != null) {
-            throw new EntityConflictException(
-                    String.format(EXAM_ACTIVE_CONFLICT, activeExam.getPatient().getName(), activeExam.getExam().getName()));
-        }
+//        if (activeExam != null) {
+//            throw new EntityConflictException(
+//                    String.format(EXAM_ACTIVE_CONFLICT, activeExam.getPatient().getName(), activeExam.getExam().getName()));
+//        }
 
         var exam = examService.findByExamId(examRegistredInput.getExam().getId());
         var worker = workerService.findWorkerById(examRegistredInput.getWorker().getId());
@@ -49,7 +49,7 @@ public class PatientExamService {
         examRegistredInput.setStartTime(OffsetDateTime.now());
         ExamRegistred examRegistredDomain = examRegistredRepository.save(examRegistredDisassembler.toModel(examRegistredInput));
 
-        examRegistredDomain.setPatient(patient);
+//        examRegistredDomain.setPatient(patient);
         examRegistredDomain.setExam(exam);
 
         return examRegistredDomain;

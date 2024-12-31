@@ -1,7 +1,7 @@
 package com.hospital.medicalsystem.api.assembler;
 
-import com.hospital.medicalsystem.api.model.PatientHistoricModel;
-import com.hospital.medicalsystem.domain.model.PatientHistoric;
+import com.hospital.medicalsystem.api.model.PatientHistoryModel;
+import com.hospital.medicalsystem.domain.model.PatientHistory;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -12,8 +12,8 @@ public class PatientHistoricAssembler {
 
     private final ModelMapper modelMapper;
 
-    public PatientHistoricModel toModel(PatientHistoric patientHistoric) {
-        return modelMapper.map(patientHistoric, PatientHistoricModel.class);
+    public PatientHistoryModel toModel(PatientHistory patientHistory) {
+        return modelMapper.map(patientHistory, PatientHistoryModel.class);
     }
 
 }

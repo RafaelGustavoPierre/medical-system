@@ -1,5 +1,6 @@
 package com.hospital.medicalsystem.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,12 +17,14 @@ public class PatientRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private Patient patient;
-
+    @JsonIgnore
     @OneToOne
     private Worker worker;
 
     private String observation;
+
+    @JsonIgnore
+    @OneToOne
+    private PatientHistory patientHistory;
 
 }

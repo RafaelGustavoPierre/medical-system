@@ -12,7 +12,7 @@ public class ExamRegistredService {
     private final ExamRegistredRepository examRegistredRepository;
 
     public ExamRegistred findActiveExam(Long patientId) {
-        return examRegistredRepository.findActiveExamByPatientId(patientId);
+        return null;
     }
 
 }

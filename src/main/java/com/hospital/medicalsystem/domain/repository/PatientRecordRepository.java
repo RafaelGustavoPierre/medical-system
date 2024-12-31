@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientRecordRepository extends JpaRepository<PatientRecord, Long> {
 
-    @Query("FROM PatientRecord pr WHERE pr.patient.id = :id")
-    PatientRecord findByPatientId(@Param("id") Long id);
+    @Query("FROM PatientRecord pr WHERE pr.patientHistory.id = :id")
+    PatientRecord findByPatientHistoryId(@Param("id") Long id);
 
 }
