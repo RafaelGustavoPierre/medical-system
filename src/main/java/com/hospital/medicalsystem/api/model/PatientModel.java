@@ -9,5 +9,6 @@ public class PatientModel {
 
     private Long id;
     private String name;
+    private Long age;
 
 }

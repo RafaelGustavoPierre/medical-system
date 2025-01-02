@@ -95,70 +95,74 @@
         <img src="../../static/images/mock_foto.jpg" th:src="@{/images/mock_foto.jpg}" alt="Foto do Paciente">
         <div class="info">
             <p><strong>Nome do Paciente:</strong> <span th:text="${patient.name}">João da Silva</span></p>
-            <p><strong>Idade:</strong> 35 anos</p>
-            <p><strong>Prontuário de Código:</strong> 123456</p>
+            <p><strong>Idade:</strong> <span th:text="${patient.age}">0</span> anos</p>
+            <p><strong>Prontuário de Código:</strong> <span th:text="${patient.id}">0</span></p>
         </div>
     </div>
 
     <div class="section">
-        <h2>Médico Responsável</h2>
-        <p><strong>Nome:</strong> <span th:text="${patientRecord.worker.name}">Kariane Almofada</span></p>
-        <p><strong>Departamento:</strong> Radiology</p>
-    </div>
+        <h2>Histórico de Presenças no Hospital</h2>
+        <div th:each="history : ${hospitalizationHistory}">
+            <h3 th:text="'Entrada as: ' + ${#dates.format(history.patientHistory.dateAdmissionString, 'dd/MM/yyyy HH:mm')}"></h3>
+            <p>Status: <span th:text="${history.patientHistory.status == 'HOSPITALIZED' ? 'INTERNADO' : 'LIBERADO'}"></span></p>
+            <p>Médico Responsável: <span th:text="${history.patientHistory.worker.name}"></span></p>
+            <p>Data de Alta: <span th:text="${#dates.format(history.patientHistory.dateAdmissionString, 'dd/MM/yyyy HH:mm')}"></span></p>
 
-        <div class="observation">
-            <h2>Observações</h2>
-            <textarea placeholder="Digite aqui as observações do médico sobre o paciente..." th:text="${patientRecord.observation}"></textarea>
+            <h4>Medicamentos Prescritos</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Descrição</th>
+                        <th>Data</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="medication : ${history.remedieRegistred}">
+                        <td th:text="${medication.remedie.name}">Paracetamol</td>
+                        <td th:text="${medication.remedie.description}">Seguro para muitas pessoas, usado para alívio de dores leves.</td>
+                        <td th:text="${#dates.format(medication.timeRegistredString, 'dd/MM/yyyy HH:mm')}">26/12/2024 09:00</td>
+                        <td th:text="${#numbers.formatCurrency(medication.price)}">R$ 0,00</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(history.remedieRegistred)}">
+                        <td colspan="5" style="text-align: center;">Nenhum medicamento registrado!</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Exames Realizados</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Exame</th>
+                        <th>Descrição</th>
+                        <th>Data Início</th>
+                        <th>Data Fim</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="examination : ${history.examRegistred}">
+                        <td th:text="${examination.exam.name}">Hemograma Completo</td>
+                        <td th:text="${examination.exam.description}">Avalia glóbulos vermelhos, glóbulos brancos e plaquetas.</td>
+                        <td th:text="${examination.startTimeString}">26/12/2024 08:00</td>
+                        <td th:text="${examination.endTimeString}">26/12/2024 10:00</td>
+                        <td th:text="${#numbers.formatCurrency(examination.price)}">R$ 0,00</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(history.examRegistred)}">
+                        <td colspan="5" style="text-align: center;">Nenhum exame registrado!</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="observation">
+                <h4>Observações</h4>
+                <textarea placeholder="Digite aqui as observações do médico sobre o paciente..." th:text="${history.patientRecord.observation}"></textarea>
+            </div>
+            <br><hr><br>
         </div>
-
-    <div class="section">
-        <h2>Histórico de Exames</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Exame</th>
-                <th>Descrição</th>
-                <th>Data Início</th>
-                <th>Data Fim</th>
-                <th>Preço</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="exam : ${examRegistred}">
-                <td th:text="${exam.exam.name}">Hemograma Completo</td>
-                <td th:text="${exam.exam.description}">Avalia glóbulos vermelhos, glóbulos brancos e plaquetas.</td>
-                <td th:text="${#dates.format(exam.startTimeString, 'dd/MM/yyyy HH:mm')}">26/12/2024</td>
-                <td th:text="${#dates.format(exam.endTimeString, 'dd/MM/yyyy HH:mm')}">26/12/2024</td>
-                <td th:text="${#numbers.formatCurrency(exam.price)}">189.99</td>
-            </tr>
-            </tbody>
-        </table>
     </div>
-
-    <div class="section">
-        <h2>Histórico de Medicamentos</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Medicamento</th>
-                <th>Descrição</th>
-                <th>Qtd.</th>
-                <th>Data Registro</th>
-                <th>Preço</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="remedie : ${remedieRegistred}">
-                <td th:text="${remedie.remedie.name}">Insulina Regular</td>
-                <td th:text="${remedie.remedie.description}" style="max-width: 550px;">Reduz os níveis de glicose no sangue.</td>
-                <td th:text="${remedie.quantity}">1</td>
-                <td th:text="${#dates.format(remedie.timeRegistredString, 'dd/MM/yyyy HH:mm')}">26/12/2024</td>
-                <td th:text="${#numbers.formatCurrency(remedie.price)}">189.99</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
 
 </div>
 </body>

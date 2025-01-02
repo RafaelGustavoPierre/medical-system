@@ -1,0 +1,4 @@
+ALTER TABLE patient ADD COLUMN age BIGINT;
+UPDATE patient SET age = 27 WHERE id = 1;
+UPDATE patient SET age = 36 WHERE id = 2;
+ALTER TABLE patient MODIFY COLUMN age BIGINT NOT NULL;

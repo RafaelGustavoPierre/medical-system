@@ -1,5 +1,6 @@
 package com.hospital.medicalsystem.api.controller;
 
+import com.hospital.medicalsystem.api.resource.PatientHistoricResource;
 import com.hospital.medicalsystem.domain.service.PatientHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,15 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PatientRecordController {
 
     private final PatientHistoryService patientHistoricService;
+    private final PatientHistoricResource patientHistoricResource;
 
     @GetMapping("/{id}")
     public String patientRecordTemplate(@PathVariable Long id, Model model) {
-//        var patientRecord = this.patientHistoricService.findPatientHistoric(id);
-//
-//        model.addAttribute("patient", patientRecord.getPatient());
-//        model.addAttribute("patientRecord", patientRecord.getPatientRecord());
-//        model.addAttribute("examRegistred", patientRecord.getExamRegistred());
-//        model.addAttribute("remedieRegistred", patientRecord.getRemedieRegistred());
+        var patientRecord = this.patientHistoricResource.findPatientHistoric(id);
+
+        model.addAttribute("patient", patientRecord.getPatient());
+        model.addAttribute("hospitalizationHistory", patientRecord.getHospitalizationHistory());
         return "pages/patient-record";
     }
 
