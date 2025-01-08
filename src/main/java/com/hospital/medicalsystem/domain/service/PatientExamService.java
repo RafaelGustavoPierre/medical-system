@@ -13,6 +13,7 @@ import com.hospital.medicalsystem.domain.model.ExamRegistred;
 import com.hospital.medicalsystem.domain.model.Patient;
 import com.hospital.medicalsystem.domain.model.Worker;
 import com.hospital.medicalsystem.domain.repository.ExamRegistredRepository;
+import com.hospital.medicalsystem.domain.repository.PatientHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class PatientExamService {
     private final PatientHistoryService patientHistoryService;
 
     private final ExamRegistredRepository examRegistredRepository;
+    private final PatientHistoryRepository patientHistoryRepository;
 
     private final PatientExamRegistredDisassembler examRegistredDisassembler;
     private final PatientExamRegistredAssembler examRegistredAssembler;
@@ -38,9 +40,9 @@ public class PatientExamService {
 
     public PatientExamRegistredModel startExam(ExamRegistredInput examRegistredInput) {
          var patient = patientService.findByPatientId(examRegistredInput.getPatient().getId());
-         var patientHistory = patientHistoryService.findPatientHistory(patient.getId());
+         var patientHistory = patientHistoryRepository.findHospitalizedByPatientId(patient.getId());
 
-        if (!patientHistory.getHospitalizationHistory().getFirst().getPatientHistory().getStatus().equals("HOSPITALIZED")) {
+        if (patientHistory == null) {
             throw new EntityNotFoundException(String.format("Paciente %s não está internado!", patient.getName()));
         }
 
@@ -58,7 +60,7 @@ public class PatientExamService {
         examRegistredInput.setStartTime(OffsetDateTime.now());
 
         examRegistredInput.setPatientHistory(new PatientHistoryReferenceInput());
-        examRegistredInput.getPatientHistory().setId(patient.getId());
+        examRegistredInput.getPatientHistory().setId(patientHistory.getId());
 
         ExamRegistred examRegistred = examRegistredRepository.save(examRegistredDisassembler.toModel(examRegistredInput));
 
@@ -72,9 +74,10 @@ public class PatientExamService {
         return patientExamRegistredModel;
     }
 
-    public ExamRegistred finishExam(Long patientId) {
-        Patient patient = patientService.findByPatientId(patientId);
-        ExamRegistred activeExam = examRegistredService.findActiveExam(patient.getId());
+    public ExamRegistred finishExam(Long patientId, Long examId) {
+        var patient = patientService.findByPatientId(patientId);
+        var patientHistory = patientHistoryRepository.findHospitalizedByPatientId(patient.getId());
+        ExamRegistred activeExam = examRegistredService.findActiveExam(patientHistory.getId(), examId);
 
         activeExam.setEndTime(OffsetDateTime.now());
         return examRegistredRepository.save(activeExam);

@@ -22,9 +22,9 @@ public class PatientExamResource {
         return patientExamService.startExam(examRegistredInput);
     }
 
-    @PutMapping("/finish-exam/{patientId}")
-    public PatientExamRegistredModel finishExame(@PathVariable Long patientId) {
-        return patientExamRegistredAssembler.toModel(patientExamService.finishExam(patientId));
+    @PutMapping("/finish-exam/patient/{patientId}/exam/{examId}")
+    public PatientExamRegistredModel finishExame(@PathVariable Long patientId, @PathVariable Long examId) {
+        return patientExamRegistredAssembler.toModel(patientExamService.finishExam(patientId, examId));
     }
 
 }

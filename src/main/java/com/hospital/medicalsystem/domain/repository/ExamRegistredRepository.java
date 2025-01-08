@@ -17,7 +17,7 @@ public interface ExamRegistredRepository extends JpaRepository<ExamRegistred, Lo
     @Query("SELECT COUNT(er) > 0 FROM ExamRegistred er WHERE er.patientHistory.id = :patientId AND er.exam.id = :examId AND er.endTime IS NULL")
     boolean existsActiveExamByPatientAndExamId(@Param("patientId") Long patientId, @Param("examId") Long examId);
 
-    @Query("FROM ExamRegistred er WHERE er.patientHistory.id = :patientId AND er.endTime IS NULL")
-    ExamRegistred findExamRegistredByPatientId(@Param("patientId") Long patientId);
+    @Query("FROM ExamRegistred er WHERE er.patientHistory.id = :patienHistorytId AND er.exam.id = :examId AND er.endTime IS NULL")
+    ExamRegistred findExamRegistredByPatientId(@Param("patienHistorytId") Long patientHistoryId, @Param("examId") Long examId);
 
 }

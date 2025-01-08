@@ -14,8 +14,8 @@ public class ExamRegistredService {
 
     private final ExamRegistredRepository examRegistredRepository;
 
-    public ExamRegistred findActiveExam(Long patientId) {
-        var activeExam  = examRegistredRepository.findExamRegistredByPatientId(patientId);
+    public ExamRegistred findActiveExam(Long patientHistoryId, Long examId) {
+        var activeExam  = examRegistredRepository.findExamRegistredByPatientId(patientHistoryId, examId);
         if (activeExam == null) {
             throw new EntityNotFoundException(ACTIVE_EXAM_NOT_FOUND);
         }
