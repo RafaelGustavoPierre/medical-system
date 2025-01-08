@@ -29,4 +29,7 @@ public class ExamRegistredInput {
     @NotNull
     private WorkerReferenceInput worker;
 
+    @Valid
+    private PatientHistoryReferenceInput patientHistory;
+
 }

@@ -15,4 +15,8 @@ public class ExamRegistredService {
         return null;
     }
 
+    public boolean existsActiveExamByPatientAndExamId(Long patientId, Long examId) {
+        return examRegistredRepository.existsActiveExamByPatientAndExamId(patientId, examId);
+    }
+
 }

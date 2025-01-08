@@ -16,12 +16,10 @@ public class PatientExamResource {
     private final PatientExamService patientExamService;
 
     private final PatientExamRegistredAssembler patientExamRegistredAssembler;
-    private final PatientExamRegistredAssembler examRegistredAssembler;
-
 
     @PostMapping("/start-exam")
     public PatientExamRegistredModel startExam(@Valid @RequestBody ExamRegistredInput examRegistredInput) {
-        return examRegistredAssembler.toModel(patientExamService.startExam(examRegistredInput));
+        return patientExamService.startExam(examRegistredInput);
     }
 
     @PutMapping("/finish-exam/{patientId}")
