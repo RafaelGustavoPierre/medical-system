@@ -22,7 +22,6 @@ import java.time.OffsetDateTime;
 @RequiredArgsConstructor
 public class PatientExamService {
 
-    private final static String ACTIVE_EXAM_NOT_FOUND = "No active exam found";
     private final static String WORKER_IS_NOT_DEPARTMENT = "Worker %s is not this department!";
 
     private final PatientService patientService;
@@ -76,9 +75,6 @@ public class PatientExamService {
     public ExamRegistred finishExam(Long patientId) {
         Patient patient = patientService.findByPatientId(patientId);
         ExamRegistred activeExam = examRegistredService.findActiveExam(patient.getId());
-        if (activeExam == null) {
-            throw new EntityNotFoundException(ACTIVE_EXAM_NOT_FOUND);
-        }
 
         activeExam.setEndTime(OffsetDateTime.now());
         return examRegistredRepository.save(activeExam);
