@@ -7,9 +7,9 @@ import java.util.List;
 
 @Getter
 @Setter
-public class HospitalizationHistory {
+public class HospitalizationHistoric {
 
-    private PatientHistory patientHistory;
+    private PatientHistoric patientHistoric;
     private PatientRecord patientRecord;
     private List<RemedieRegistred> remedieRegistred;
     private List<ExamRegistred> examRegistred;

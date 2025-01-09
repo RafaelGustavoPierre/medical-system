@@ -39,7 +39,7 @@ public class RemedieRegistred {
 
     @JsonIgnore
     @ManyToOne
-    private PatientHistory patientHistory;
+    private PatientHistoric patientHistoric;
 
     public String getTimeRegistredString() {
         if (timeRegistred != null) {

@@ -11,6 +11,6 @@ import java.util.List;
 public class MedicalRecordModel {
 
     private Patient patient;
-    private List<HospitalizationHistoryModel> hospitalizationHistory;
+    private List<HospitalizationHistoricModel> hospitalizationHistoric;
 
 }

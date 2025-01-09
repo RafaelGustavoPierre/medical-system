@@ -11,16 +11,16 @@ import java.util.List;
 @Repository
 public interface ExamRegistredRepository extends JpaRepository<ExamRegistred, Long> {
 
-    @Query("FROM ExamRegistred er WHERE er.patientHistory.id = :id")
-    List<ExamRegistred> findByPatientHistoryId(@Param("id") Long id);
+    @Query("FROM ExamRegistred er WHERE er.patientHistoric.id = :patientHistoricId")
+    List<ExamRegistred> findByPatientHistoricId(@Param("patientHistoricId") Long patientHistoricId);
 
-    @Query("SELECT COUNT(er) > 0 FROM ExamRegistred er WHERE er.patientHistory.id = :patientHistoryId AND er.exam.id = :examId AND er.endTime IS NULL")
-    boolean existsActiveExamByPatientAndExamId(@Param("patientHistoryId") Long patientHistoryId, @Param("examId") Long examId);
+    @Query("SELECT COUNT(er) > 0 FROM ExamRegistred er WHERE er.patientHistoric.id = :patientHistoricId AND er.exam.id = :examId AND er.endTime IS NULL")
+    boolean existsActiveExamByPatientAndExamId(@Param("patientHistoricId") Long patientHistoricId, @Param("examId") Long examId);
 
-    @Query("FROM ExamRegistred er WHERE er.patientHistory.id = :patientHistoryId AND er.exam.id = :examId AND er.endTime IS NULL")
-    ExamRegistred findExamRegistredByPatientId(@Param("patientHistoryId") Long patientHistoryId, @Param("examId") Long examId);
+    @Query("FROM ExamRegistred er WHERE er.patientHistoric.id = :patientHistoricId AND er.exam.id = :examId AND er.endTime IS NULL")
+    ExamRegistred findExamRegistredByPatientId(@Param("patientHistoricId") Long patientHistoricId, @Param("examId") Long examId);
 
-    @Query("FROM ExamRegistred er WHERE er.patientHistory.id = :patientHistoryId AND er.endTime IS NULL")
-    List<ExamRegistred> findActiveExamListByPatientId(@Param("patientHistoryId") Long patientHistoryId);
+    @Query("FROM ExamRegistred er WHERE er.patientHistoric.id = :patientHistoricId AND er.endTime IS NULL")
+    List<ExamRegistred> findActiveExamListByPatientId(@Param("patientHistoricId") Long patientHistoricId);
 
 }

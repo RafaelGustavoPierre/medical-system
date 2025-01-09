@@ -25,6 +25,6 @@ public class PatientRecord {
 
     @JsonIgnore
     @OneToOne
-    private PatientHistory patientHistory;
+    private PatientHistoric patientHistoric;
 
 }

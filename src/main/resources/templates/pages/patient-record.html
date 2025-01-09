@@ -102,11 +102,11 @@
 
     <div class="section">
         <h2>Histórico de Presenças no Hospital</h2>
-        <div th:each="history : ${hospitalizationHistory}">
-            <h3 th:text="'Entrada as: ' + ${#dates.format(history.patientHistory.dateAdmissionString, 'dd/MM/yyyy HH:mm')}"></h3>
-            <p>Status: <span th:text="${history.patientHistory.status == 'HOSPITALIZED' ? 'INTERNADO' : 'LIBERADO'}"></span></p>
-            <p>Médico Responsável: <span th:text="${history.patientHistory.worker.name}"></span></p>
-            <p>Data de Alta: <span th:text="${#dates.format(history.patientHistory.dateAdmissionString, 'dd/MM/yyyy HH:mm')}"></span></p>
+        <div th:each="historic : ${hospitalizationHistoric}">
+            <h3 th:text="'Entrada as: ' + ${#dates.format(historic.patientHistoric.dateAdmissionString, 'dd/MM/yyyy HH:mm')}"></h3>
+            <p>Status: <span th:text="${historic.patientHistoric.status == 'HOSPITALIZED' ? 'INTERNADO' : 'LIBERADO'}"></span></p>
+            <p>Médico Responsável: <span th:text="${historic.patientHistoric.worker.name}"></span></p>
+            <p>Data de Alta: <span th:text="${#dates.format(historic.patientHistoric.dateAdmissionString, 'dd/MM/yyyy HH:mm')}"></span></p>
 
             <h4>Medicamentos Prescritos</h4>
             <table class="table">
@@ -119,13 +119,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="medication : ${history.remedieRegistred}">
+                    <tr th:each="medication : ${historic.remedieRegistred}">
                         <td th:text="${medication.remedie.name}">Paracetamol</td>
                         <td th:text="${medication.remedie.description}">Seguro para muitas pessoas, usado para alívio de dores leves.</td>
                         <td th:text="${#dates.format(medication.timeRegistredString, 'dd/MM/yyyy HH:mm')}">26/12/2024 09:00</td>
                         <td th:text="${#numbers.formatCurrency(medication.price)}">R$ 0,00</td>
                     </tr>
-                    <tr th:if="${#lists.isEmpty(history.remedieRegistred)}">
+                    <tr th:if="${#lists.isEmpty(historic.remedieRegistred)}">
                         <td colspan="5" style="text-align: center;">Nenhum medicamento registrado!</td>
                     </tr>
                 </tbody>
@@ -143,14 +143,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="examination : ${history.examRegistred}">
+                    <tr th:each="examination : ${historic.examRegistred}">
                         <td th:text="${examination.exam.name}">Hemograma Completo</td>
                         <td th:text="${examination.exam.description}">Avalia glóbulos vermelhos, glóbulos brancos e plaquetas.</td>
                         <td th:text="${examination.startTimeString}">26/12/2024 08:00</td>
                         <td th:text="${examination.endTimeString}">26/12/2024 10:00</td>
                         <td th:text="${#numbers.formatCurrency(examination.price)}">R$ 0,00</td>
                     </tr>
-                    <tr th:if="${#lists.isEmpty(history.examRegistred)}">
+                    <tr th:if="${#lists.isEmpty(historic.examRegistred)}">
                         <td colspan="5" style="text-align: center;">Nenhum exame registrado!</td>
                     </tr>
                 </tbody>
@@ -158,7 +158,7 @@
 
             <div class="observation">
                 <h4>Observações</h4>
-                <textarea placeholder="Digite aqui as observações do médico sobre o paciente..." th:text="${history.patientRecord.observation}"></textarea>
+                <textarea placeholder="Digite aqui as observações do médico sobre o paciente..." th:text="${historic.patientRecord.observation}"></textarea>
             </div>
             <br><hr><br>
         </div>

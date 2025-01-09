@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RemedieRegistredRepository extends JpaRepository<RemedieRegistred, Long> {
 
-    @Query("FROM RemedieRegistred rr WHERE rr.patientHistory.id = :id")
-    List<RemedieRegistred> findByPatientHistoryId(Long id);
+    @Query("FROM RemedieRegistred rr WHERE rr.patientHistoric.id = :id")
+    List<RemedieRegistred> findByPatientHistoricId(Long id);
 
 }

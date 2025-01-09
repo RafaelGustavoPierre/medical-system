@@ -10,6 +10,6 @@ import java.util.List;
 public class MedicalRecord {
 
     private Patient patient;
-    private List<HospitalizationHistory> hospitalizationHistory;
+    private List<HospitalizationHistoric> hospitalizationHistoric;
 
 }

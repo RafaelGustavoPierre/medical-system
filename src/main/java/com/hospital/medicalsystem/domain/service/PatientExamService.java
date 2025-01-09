@@ -5,15 +5,14 @@ import com.hospital.medicalsystem.api.assembler.PatientExamRegistredAssembler;
 import com.hospital.medicalsystem.api.assembler.PatientExamRegistredDisassembler;
 import com.hospital.medicalsystem.api.model.PatientExamRegistredModel;
 import com.hospital.medicalsystem.api.model.input.ExamRegistredInput;
-import com.hospital.medicalsystem.api.model.input.PatientHistoryReferenceInput;
+import com.hospital.medicalsystem.api.model.input.PatientHistoricReferenceInput;
 import com.hospital.medicalsystem.domain.exception.EntityConflictException;
 import com.hospital.medicalsystem.domain.exception.EntityNotFoundException;
 import com.hospital.medicalsystem.domain.model.Exam;
 import com.hospital.medicalsystem.domain.model.ExamRegistred;
-import com.hospital.medicalsystem.domain.model.Patient;
 import com.hospital.medicalsystem.domain.model.Worker;
 import com.hospital.medicalsystem.domain.repository.ExamRegistredRepository;
-import com.hospital.medicalsystem.domain.repository.PatientHistoryRepository;
+import com.hospital.medicalsystem.domain.repository.PatientHistoricRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,10 +29,10 @@ public class PatientExamService {
     private final ExamService examService;
     private final ExamRegistredService examRegistredService;
     private final WorkerService workerService;
-    private final PatientHistoryService patientHistoryService;
+    private final PatientHistoricService patientHistoricService;
 
     private final ExamRegistredRepository examRegistredRepository;
-    private final PatientHistoryRepository patientHistoryRepository;
+    private final PatientHistoricRepository patientHistoricRepository;
 
     private final PatientExamRegistredDisassembler examRegistredDisassembler;
     private final PatientExamRegistredAssembler examRegistredAssembler;
@@ -41,7 +40,7 @@ public class PatientExamService {
 
     public PatientExamRegistredModel startExam(ExamRegistredInput examRegistredInput) {
          var patient = patientService.findByPatientId(examRegistredInput.getPatient().getId());
-         var patientHistory = patientHistoryRepository.findHospitalizedByPatientId(patient.getId());
+         var patientHistory = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
 
         if (patientHistory == null) {
             throw new EntityNotFoundException(String.format("Paciente %s não está internado!", patient.getName()));
@@ -60,7 +59,7 @@ public class PatientExamService {
 
         examRegistredInput.setStartTime(OffsetDateTime.now());
 
-        examRegistredInput.setPatientHistory(new PatientHistoryReferenceInput());
+        examRegistredInput.setPatientHistory(new PatientHistoricReferenceInput());
         examRegistredInput.getPatientHistory().setId(patientHistory.getId());
 
         ExamRegistred examRegistred = examRegistredRepository.save(examRegistredDisassembler.toModel(examRegistredInput));
@@ -77,7 +76,7 @@ public class PatientExamService {
 
     public ExamRegistred finishExam(Long patientId, Long examId) {
         var patient = patientService.findByPatientId(patientId);
-        var patientHistory = patientHistoryRepository.findHospitalizedByPatientId(patient.getId());
+        var patientHistory = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
         ExamRegistred activeExam = examRegistredService.findActiveExam(patientHistory.getId(), examId);
 
         activeExam.setEndTime(OffsetDateTime.now());
@@ -88,7 +87,7 @@ public class PatientExamService {
         var patient = patientService.findByPatientId(patientId);
 
 //        TODO Verificar se o paciente está HOSPITALIZED
-        var patientHospitalized = patientHistoryRepository.findHospitalizedByPatientId(patient.getId());
+        var patientHospitalized = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
         if (patientHospitalized == null) {
             throw new EntityConflictException(String.format("O paciente %s não está internado!", patient.getName()));
         }

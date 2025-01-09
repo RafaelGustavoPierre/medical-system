@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PatientHistory {
+public class PatientHistoric {
 
     @Id
     @EqualsAndHashCode.Include

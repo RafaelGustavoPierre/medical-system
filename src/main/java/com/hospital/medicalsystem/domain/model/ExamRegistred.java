@@ -41,7 +41,7 @@ public class ExamRegistred {
 
     @JsonIgnore
     @ManyToOne
-    private PatientHistory patientHistory;
+    private PatientHistoric patientHistoric;
 
     public String getStartTimeString() {
         if (startTime != null) {

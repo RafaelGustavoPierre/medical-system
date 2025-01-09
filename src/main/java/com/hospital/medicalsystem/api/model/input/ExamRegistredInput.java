@@ -30,6 +30,6 @@ public class ExamRegistredInput {
     private WorkerReferenceInput worker;
 
     @Valid
-    private PatientHistoryReferenceInput patientHistory;
+    private PatientHistoricReferenceInput patientHistory;
 
 }
