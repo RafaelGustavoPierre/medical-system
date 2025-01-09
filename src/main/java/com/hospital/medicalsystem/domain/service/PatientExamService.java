@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,7 +47,7 @@ public class PatientExamService {
             throw new EntityNotFoundException(String.format("Paciente %s não está internado!", patient.getName()));
         }
 
-        boolean examActive = examRegistredService.existsActiveExamByPatientAndExamId(patient.getId(), examRegistredInput.getExam().getId());
+        boolean examActive = examRegistredService.existsActiveExamByPatientAndExamId(patientHistory.getId(), examRegistredInput.getExam().getId());
         if (examActive) {
             throw new EntityConflictException(String.format("O paciente %s já está com um pedido do mesmo exame", patient.getName()));
         }
@@ -81,6 +82,24 @@ public class PatientExamService {
 
         activeExam.setEndTime(OffsetDateTime.now());
         return examRegistredRepository.save(activeExam);
+    }
+
+    public List<ExamRegistred> findPatientActiveExamList(Long patientId) {
+        var patient = patientService.findByPatientId(patientId);
+
+//        TODO Verificar se o paciente está HOSPITALIZED
+        var patientHospitalized = patientHistoryRepository.findHospitalizedByPatientId(patient.getId());
+        if (patientHospitalized == null) {
+            throw new EntityConflictException(String.format("O paciente %s não está internado!", patient.getName()));
+        }
+
+//        TODO Verificar se existe exames para fazer e retornar caso tenha
+        var examsActive = examRegistredRepository.findActiveExamListByPatientId(patientHospitalized.getId());
+        if (examsActive.isEmpty()) {
+            throw new EntityNotFoundException(String.format("O paciente %s não tem exames a serem feitos!", patient.getName()));
+        }
+
+        return examsActive;
     }
 
 }
