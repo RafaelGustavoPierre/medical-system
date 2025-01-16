@@ -12,9 +12,12 @@ import java.util.List;
 public interface PatientHistoricRepository extends JpaRepository<PatientHistoric, Long> {
 
     @Query("FROM PatientHistoric ph WHERE ph.patient.id = :id ORDER BY ph.id DESC")
-    List<PatientHistoric> findByPatientId(Long id);
+    List<PatientHistoric> findListByPatientId(Long id);
 
     @Query("FROM PatientHistoric ph WHERE ph.patient.id = :id AND ph.status = 'HOSPITALIZED'")
     PatientHistoric findHospitalizedByPatientId(@Param("id") Long patientId);
+
+    @Query("SELECT COUNT(ph) > 0 FROM PatientHistoric ph WHERE ph.patient.id = :id AND ph.status = 'HOSPITALIZED'")
+    boolean existsActiveAdmissionByPatientId(@Param("id") Long patientId);
 
 }

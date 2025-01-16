@@ -1,13 +1,14 @@
 package com.hospital.medicalsystem.api.resource;
 
 import com.hospital.medicalsystem.api.assembler.MedicalRecordAssembler;
+import com.hospital.medicalsystem.api.assembler.PatientHistoricAssembler;
 import com.hospital.medicalsystem.api.model.MedicalRecordModel;
+import com.hospital.medicalsystem.api.model.PatientAdmission;
+import com.hospital.medicalsystem.api.model.PatientHistoricModel;
+import com.hospital.medicalsystem.domain.model.PatientHistoric;
 import com.hospital.medicalsystem.domain.service.PatientHistoricService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/patient-historic")
@@ -21,5 +22,7 @@ public class PatientHistoricResource {
     public MedicalRecordModel findPatientHistoric(@PathVariable Long id) {
         return medicalRecordAssembler.toModel(patientHistoricService.findPatientHistoric(id));
     }
+
+
 
 }
