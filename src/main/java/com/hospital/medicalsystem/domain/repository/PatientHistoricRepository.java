@@ -20,4 +20,7 @@ public interface PatientHistoricRepository extends JpaRepository<PatientHistoric
     @Query("SELECT COUNT(ph) > 0 FROM PatientHistoric ph WHERE ph.patient.id = :id AND ph.status = 'HOSPITALIZED'")
     boolean existsActiveAdmissionByPatientId(@Param("id") Long patientId);
 
+    @Query("SELECT COUNT(ph) > 0 FROM PatientHistoric ph WHERE ph.patient.id = :id and ph.status = 'HOSPITALIZED'")
+    boolean existsHospitalizedByPatientId(@Param("id") Long patientId);
+
 }

@@ -1,12 +1,9 @@
 package com.hospital.medicalsystem.api.resource;
 
-import com.hospital.medicalsystem.api.model.PatientAdmission;
+import com.hospital.medicalsystem.api.model.PatientRegistred;
 import com.hospital.medicalsystem.domain.service.PatientHistoricService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/patient")
@@ -16,8 +13,13 @@ public class PatientResource {
     private final PatientHistoricService patientHistoricService;
 
     @PostMapping("/{id}/admissions")
-    public PatientAdmission admitPatient(@PathVariable Long id) {
+    public PatientRegistred admitPatient(@PathVariable Long id) {
         return patientHistoricService.admitPatient(id);
+    }
+
+    @PutMapping("/{id}/discharge")
+    public PatientRegistred dischargePatient(@PathVariable Long id) {
+        return patientHistoricService.dischargePatient(id);
     }
 
 }

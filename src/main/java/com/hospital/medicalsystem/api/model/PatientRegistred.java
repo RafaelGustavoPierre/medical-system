@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PatientAdmission {
+public class PatientRegistred {
 
     private PatientModel patient;
     private PatientHistoricModel patientHistoric;

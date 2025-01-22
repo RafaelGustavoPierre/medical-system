@@ -1,3 +1,5 @@
+SET time_zone='America/Sao_Paulo';
+
 set FOREIGN_KEY_CHECKS = 0;
 DELETE FROM exam_registred;
 DELETE FROM remedie_registred;

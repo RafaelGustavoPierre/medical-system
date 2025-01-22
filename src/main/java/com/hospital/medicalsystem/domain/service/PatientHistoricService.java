@@ -3,7 +3,7 @@ package com.hospital.medicalsystem.domain.service;
 import com.hospital.medicalsystem.api.assembler.PatientAssembler;
 import com.hospital.medicalsystem.api.assembler.PatientHistoricAssembler;
 import com.hospital.medicalsystem.api.assembler.PatientHistoricDisassembler;
-import com.hospital.medicalsystem.api.model.PatientAdmission;
+import com.hospital.medicalsystem.api.model.PatientRegistred;
 import com.hospital.medicalsystem.api.model.input.PatientHistoricInput;
 import com.hospital.medicalsystem.api.model.input.PatientReferenceInput;
 import com.hospital.medicalsystem.api.model.input.WorkerReferenceInput;
@@ -66,7 +66,7 @@ public class PatientHistoricService {
         return medicalRecord;
     }
 
-    public PatientAdmission admitPatient(Long id) {
+    public PatientRegistred admitPatient(Long id) {
         var patient = patientService.findByPatientId(id);
 
         boolean patientIsHopitalized = patientHistoricRepository.existsActiveAdmissionByPatientId(patient.getId());
@@ -93,11 +93,35 @@ public class PatientHistoricService {
         var patientHistoricModel = patientHistoricAssembler.toModel(admitPatient);
         var patientModel = patientAssembler.toModel(patient);
 
-        PatientAdmission patientAdmission = new PatientAdmission();
+        PatientRegistred patientAdmission = new PatientRegistred();
         patientAdmission.setPatient(patientModel);
         patientAdmission.setPatientHistoric(patientHistoricModel);
 
         return patientAdmission;
+    }
+
+    public PatientRegistred dischargePatient(Long id) {
+        var patient = patientService.findByPatientId(id);
+
+        PatientHistoric hospitalizedPatient = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
+        if (!hospitalizedPatient.getStatus().equals("HOSPITALIZED")) {
+            throw new EntityConflictException(String.format("Paciente %s - %s não é está internado!", patient.getId(), patient.getName()));
+        }
+
+        boolean activeExam = examRegistredRepository.existsActiveExamByPatient(hospitalizedPatient.getId());
+        if (activeExam == true) {
+            throw new EntityConflictException(String.format("Paciente %s - %s está com exames ativos e não pode ter alta!", patient.getId(), patient.getName()));
+        }
+
+        hospitalizedPatient.setStatus("DISCHARGE");
+        hospitalizedPatient.setDateDischarge(OffsetDateTime.now());
+        patientHistoricRepository.save(hospitalizedPatient);
+
+        PatientRegistred patientRegistred = new PatientRegistred();
+        patientRegistred.setPatient(patientAssembler.toModel(patient));
+        patientRegistred.setPatientHistoric(patientHistoricAssembler.toModel(hospitalizedPatient));
+
+        return patientRegistred;
     }
 
 }
