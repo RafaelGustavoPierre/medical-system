@@ -13,8 +13,10 @@ import com.hospital.medicalsystem.domain.repository.ExamRegistredRepository;
 import com.hospital.medicalsystem.domain.repository.PatientHistoricRepository;
 import com.hospital.medicalsystem.domain.repository.RemedieRegistredRepository;
 import com.hospital.medicalsystem.domain.repository.WorkerRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class PatientHistoricService {
     private final PatientHistoricDisassembler patientHistoricDisassembler;
     private final PatientHistoricAssembler patientHistoricAssembler;
     private final PatientAssembler patientAssembler;
+
+    private final EntityManager entityManager;
 
     public MedicalRecord findPatientHistoric(Long id) {
         Patient patient = patientService.findByPatientId(id);
@@ -100,6 +104,7 @@ public class PatientHistoricService {
         return patientAdmission;
     }
 
+    @Transactional
     public PatientRegistred dischargePatient(Long id) {
         var patient = patientService.findByPatientId(id);
 
@@ -109,17 +114,17 @@ public class PatientHistoricService {
         }
 
         boolean activeExam = examRegistredRepository.existsActiveExamByPatient(hospitalizedPatient.getId());
-        if (activeExam == true) {
+        if (activeExam) {
             throw new EntityConflictException(String.format("Paciente %s - %s está com exames ativos e não pode ter alta!", patient.getId(), patient.getName()));
         }
 
         hospitalizedPatient.setStatus("DISCHARGE");
         hospitalizedPatient.setDateDischarge(OffsetDateTime.now());
-        patientHistoricRepository.save(hospitalizedPatient);
+        var patientHistoric = patientHistoricRepository.save(hospitalizedPatient);
 
         PatientRegistred patientRegistred = new PatientRegistred();
         patientRegistred.setPatient(patientAssembler.toModel(patient));
-        patientRegistred.setPatientHistoric(patientHistoricAssembler.toModel(hospitalizedPatient));
+        patientRegistred.setPatientHistoric(patientHistoricAssembler.toModel(patientHistoric));
 
         return patientRegistred;
     }
