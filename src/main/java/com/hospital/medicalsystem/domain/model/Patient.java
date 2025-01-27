@@ -27,4 +27,7 @@ public class Patient {
     @NotNull
     private Long age;
 
+    @NotBlank
+    private String email;
+
 }

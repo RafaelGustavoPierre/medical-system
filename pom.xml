@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>21</java.version>
 		<modelmapper.version>3.2.1</modelmapper.version>
+		<mail.sender>3.4.0</mail.sender>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -58,7 +59,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<!--		-->
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -73,6 +73,12 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>${mail.sender}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
@@ -81,7 +87,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
