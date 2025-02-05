@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
 
+import java.util.Map;
 import java.util.Set;
 
 public interface SendEmailService {
@@ -18,6 +19,9 @@ public interface SendEmailService {
         private Set<String> recipients;
         private String title;
         private String body;
+
+        @Singular
+        private Map<String, Object> vars;
 
     }
 

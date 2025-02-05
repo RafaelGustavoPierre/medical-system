@@ -14,6 +14,9 @@ public interface PatientHistoricRepository extends JpaRepository<PatientHistoric
     @Query("FROM PatientHistoric ph WHERE ph.patient.id = :id ORDER BY ph.id DESC")
     List<PatientHistoric> findListByPatientId(Long id);
 
+    @Query("FROM PatientHistoric ph WHERE ph.patient.id = :id ORDER BY ph.id DESC LIMIT 1")
+    PatientHistoric findLatestByPatientId(@Param("id") Long patientId);
+
     @Query("FROM PatientHistoric ph WHERE ph.patient.id = :id AND ph.status = 'HOSPITALIZED'")
     PatientHistoric findHospitalizedByPatientId(@Param("id") Long patientId);
 

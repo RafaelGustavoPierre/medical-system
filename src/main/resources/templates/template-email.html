@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prontuário do Paciente</title>
+    <style>
+        * {
+            font-family: Arial, 'sans-serif';
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: auto;
+            width: 80%;
+            max-width: 980px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+
+        .header .info {
+            margin: 10px;
+            flex-grow: 1;
+        }
+
+        .header .info p {
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin-top: 10px;
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .medications {
+            margin-top: 10px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        .table td:last-child {
+            text-align: center;
+        }
+
+        .observation {
+            margin-top: 20px;
+        }
+
+        .observation textarea {
+            width: 97.5%;
+            height: 50px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            font-family: Arial, 'sans-serif';
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="${img}" alt="Foto do Paciente">
+        <div class="info">
+            <p><strong>Nome do Paciente:</strong> <span >${patient.name}</span></p>
+            <p><strong>Idade:</strong> <span>${patient.age}</span> anos</p>
+        </div>
+    </div>
+
+
+
+<div class="section">
+        <p>Data de Entrada: ${historic.dateAdmission?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}</p>
+        <p>Data de Alta: <#if historic.dateDischarge??>${historic.dateDischarge?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}<#else>&nbsp;</#if></p>
+        <p>Médico Responsável: ${historic.worker.name}</p>
+
+        <h4 class="medications">Medicamentos Prescritos</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Medicamento</th>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Preço</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#if remedies?has_content>
+                <#list remedies as remedie>
+                    <tr>
+                        <td>${remedie.remedie.name}</td>
+                        <td>${remedie.remedie.name}</td>
+                        <td>${remedie.timeRegistred?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}</td>
+                        <td>${remedie.price?string.currency}</td>
+                    </tr>
+                </#list>
+            <#else>
+                <tr>
+                    <td colspan="4" style="text-align: center;">Nenhum medicamento registrado!</td>
+                </tr>
+            </#if>
+        </tbody>
+        </table>
+
+        <h4>Exames Realizados</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Exame</th>
+                <th>Descrição</th>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+                <th>Preço</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#if exams?has_content>
+                <#list exams as exam>
+                    <tr>
+                        <td>${exam.exam.name}</td>
+                        <td>${exam.exam.description}</td>
+                        <td>${exam.startTime?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}</td>
+                        <td>${exam.endTime?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}</td>
+                        <td>${exam.price?string.currency}</td>
+                    </tr>
+                </#list>
+            <#else>
+                <tr>
+                    <td colspan="5" style="text-align: center;">Nenhum exame registrado!</td>
+                </tr>
+            </#if>
+            </tbody>
+        </table>
+
+        <div class="observation">
+            <h4>Observações</h4>
+            <textarea disabled><#if recordPatient.observation??>${recordPatient.observation}<#else>&nbsp;</#if></textarea>
+        </div>
+        <br><hr><br>
+    </div>
+
+</div>
+</body>
+</html>

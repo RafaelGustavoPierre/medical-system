@@ -4,10 +4,8 @@ import com.hospital.medicalsystem.domain.exception.EntityNotFoundException;
 import com.hospital.medicalsystem.domain.model.Worker;
 import com.hospital.medicalsystem.domain.repository.WorkerRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.jdbc.Work;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
