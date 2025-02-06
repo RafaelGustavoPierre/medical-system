@@ -9,6 +9,7 @@ public enum ProblemType {
     ENTITY_NOT_FOUND("/entity-not-found", "Entity not found"),
     INVALID_DATA("/invalid-data", "Invalid data"),
     SYNTAX_ERROR("/syntax-error", "Syntax error"),
+    INVALID_PARAM("/invalid-param", "Invalid param"),
     EXAM_ACTIVE_CONFLICT("/active-exam-conflict", "Active exam conflict");
 
     private String title;
