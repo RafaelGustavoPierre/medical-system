@@ -2,9 +2,9 @@ package com.hospital.medicalsystem.api.exceptionhandler;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import com.hospital.medicalsystem.domain.exception.EntityConflictException;
 import com.hospital.medicalsystem.domain.exception.EntityNotFoundException;
-//import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -66,6 +67,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         if (rootCause instanceof InvalidFormatException) {
             return handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);
+        } else if (rootCause instanceof  PropertyBindingException) {
+            return handlePropertyBindingException((PropertyBindingException) rootCause, headers, status, request);
         }
 
         ProblemType problemType = ProblemType.SYNTAX_ERROR;
@@ -73,23 +76,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         Problem problem = createProblemBuilder(status, problemType, detail)
                 .userMessage("The request body is invalid, Check syntax error")
-                .build();
-
-        return handleExceptionInternal(ex, problem, headers, status, request);
-    }
-
-    private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, HttpHeaders headers,
-                                                                HttpStatusCode status, WebRequest request) {
-
-        String path = ex.getPath().stream()
-                .map(JsonMappingException.Reference::getFieldName)
-                .collect(Collectors.joining("."));
-
-        ProblemType problemType = ProblemType.SYNTAX_ERROR;
-        String detail = String.format("Property '%s' has been assigned the value '%s', which is of an invalid type. " +
-                "Please correct and provide a value compatible with type %s.", path, ex.getValue(), ex.getTargetType().getSimpleName());
-
-        Problem problem = createProblemBuilder(status, problemType, detail)
                 .build();
 
         return handleExceptionInternal(ex, problem, headers, status, request);
@@ -112,6 +98,38 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
     }
 
+    private ResponseEntity<Object> handlePropertyBindingException(PropertyBindingException ex, HttpHeaders headers,
+                                                                  HttpStatusCode status, WebRequest request) {
+        String path = joinPath(ex.getPath());
+
+        ProblemType problemType = ProblemType.INVALID_DATA;
+        String detail = String.format("The property '%s' does not exist. Please correct or remove this priority and try again.", path);
+
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+
+        return handleExceptionInternal(ex, problem, headers, status, request);
+    }
+
+    private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, HttpHeaders headers,
+                                                                HttpStatusCode status, WebRequest request) {
+        String path = joinPath(ex.getPath());
+
+        ProblemType problemType = ProblemType.SYNTAX_ERROR;
+        String detail = String.format("Property '%s' has been assigned the value '%s', which is of an invalid type. " +
+                "Please correct and provide a value compatible with type %s.", path, ex.getValue(), ex.getTargetType().getSimpleName());
+
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .build();
+
+        return handleExceptionInternal(ex, problem, headers, status, request);
+    }
+
+    private static String joinPath(List<JsonMappingException.Reference> references) {
+        return references.stream()
+                .map(JsonMappingException.Reference::getFieldName)
+                .collect(Collectors.joining("."));
+    }
+
     private Problem.ProblemBuilder createProblemBuilder(HttpStatusCode status,
                                                         ProblemType problemType, String detail) {
         return Problem.builder()
@@ -120,5 +138,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .title(problemType.getTitle())
                 .detail(detail);
     }
+
+
 
 }
