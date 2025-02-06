@@ -109,7 +109,7 @@ public class PatientHistoricService {
         var patient = patientService.findByPatientId(id);
 
         PatientHistoric hospitalizedPatient = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
-        if (!hospitalizedPatient.getStatus().equals("HOSPITALIZED")) {
+        if (hospitalizedPatient == null) {
             throw new EntityConflictException(String.format("Paciente %s - %s não é está internado!", patient.getId(), patient.getName()));
         }
 
