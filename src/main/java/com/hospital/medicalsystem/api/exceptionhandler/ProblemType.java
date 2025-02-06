@@ -5,7 +5,10 @@ import lombok.Getter;
 @Getter
 public enum ProblemType {
 
+    SYSTEM_ERROR("/system-error", "System erro"),
     ENTITY_NOT_FOUND("/entity-not-found", "Entity not found"),
+    INVALID_DATA("/invalid-data", "Invalid data"),
+    SYNTAX_ERROR("/syntax-error", "Syntax error"),
     EXAM_ACTIVE_CONFLICT("/active-exam-conflict", "Active exam conflict");
 
     private String title;

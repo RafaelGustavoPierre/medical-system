@@ -18,6 +18,7 @@ public class ExamRegistredInput {
     private OffsetDateTime startTime;
     private OffsetDateTime endTime;
 
+    @Valid
     @NotNull
     private ExamReferenceInput exam;
 
@@ -29,7 +30,6 @@ public class ExamRegistredInput {
     @NotNull
     private WorkerReferenceInput worker;
 
-    @Valid
     private PatientHistoricReferenceInput patientHistory;
 
 }

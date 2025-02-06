@@ -21,7 +21,7 @@ public class PatientExamResource {
     private final PatientExamRegistredAssembler patientExamRegistredAssembler;
 
     @PostMapping("/start-exam")
-    public PatientExamRegistredModel startExam(@Valid @RequestBody ExamRegistredInput examRegistredInput) {
+    public PatientExamRegistredModel startExam(@RequestBody @Valid ExamRegistredInput examRegistredInput) {
         return patientExamService.startExam(examRegistredInput);
     }
 

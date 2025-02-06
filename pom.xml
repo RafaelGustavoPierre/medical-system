@@ -30,7 +30,6 @@
 		<java.version>21</java.version>
 		<modelmapper.version>3.2.1</modelmapper.version>
 		<mail-sender.version>3.4.0</mail-sender.version>
-		<freemarker.version>3.4.2</freemarker.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -92,8 +91,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
-			<version>${freemarker.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
 
 	</dependencies>
 

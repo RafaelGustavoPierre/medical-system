@@ -12,8 +12,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
-import java.io.IOException;
-
 @Service
 @RequiredArgsConstructor
 public class SmtpSendEmailService implements SendEmailService {
@@ -28,7 +26,6 @@ public class SmtpSendEmailService implements SendEmailService {
     public void send(Message message) {
         try {
             String body = generateTemplate(message);
-
             MimeMessage mimeMessage = mailSender.createMimeMessage();
 
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
