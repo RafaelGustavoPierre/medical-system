@@ -1,7 +1,9 @@
 package com.hospital.medicalsystem.api.model.input;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +15,7 @@ import java.time.OffsetDateTime;
 public class ExamRegistredInput {
 
     @NotNull
+    @PositiveOrZero
     private BigDecimal price;
 
     private OffsetDateTime startTime;
