@@ -38,8 +38,6 @@ public class PatientHistoricService {
     private final PatientHistoricAssembler patientHistoricAssembler;
     private final PatientAssembler patientAssembler;
 
-    private final EntityManager entityManager;
-
     public MedicalRecord findPatientHistoric(Long id) {
         Patient patient = patientService.findByPatientId(id);
 

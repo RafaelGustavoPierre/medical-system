@@ -1,0 +1,2 @@
+﻿INSERT INTO patient_record (worker_id, observation, patient_historic_id) VALUES (3, "Reclamação de dor no pãncreas!", 1);
+INSERT INTO patient_record (worker_id, observation, patient_historic_id) VALUES (2, "Paciente reclamando de náusea e desequilíbrio!", 2);

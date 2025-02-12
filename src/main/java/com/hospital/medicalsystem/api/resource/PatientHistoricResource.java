@@ -19,6 +19,4 @@ public class PatientHistoricResource {
         return medicalRecordAssembler.toModel(patientHistoricService.findPatientHistoric(id));
     }
 
-
-
 }
