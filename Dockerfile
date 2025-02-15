@@ -2,7 +2,9 @@
 
 WORKDIR /app
 
-COPY target/medical-system-0.0.1-SNAPSHOT.jar /app/api.jar
+ARG JAR_FILE
+
+COPY target/${JAR_FILE} /app/api.jar
 
 EXPOSE 8080
 

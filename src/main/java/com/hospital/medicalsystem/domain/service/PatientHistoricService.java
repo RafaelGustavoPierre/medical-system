@@ -9,10 +9,7 @@ import com.hospital.medicalsystem.api.model.input.PatientReferenceInput;
 import com.hospital.medicalsystem.api.model.input.WorkerReferenceInput;
 import com.hospital.medicalsystem.domain.exception.EntityConflictException;
 import com.hospital.medicalsystem.domain.model.*;
-import com.hospital.medicalsystem.domain.repository.ExamRegistredRepository;
-import com.hospital.medicalsystem.domain.repository.PatientHistoricRepository;
-import com.hospital.medicalsystem.domain.repository.RemedieRegistredRepository;
-import com.hospital.medicalsystem.domain.repository.WorkerRepository;
+import com.hospital.medicalsystem.domain.repository.*;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,6 +30,7 @@ public class PatientHistoricService {
     private final RemedieRegistredRepository remedieRegistredRepository;
     private final PatientHistoricRepository patientHistoricRepository;
     private final WorkerRepository workerRepository;
+    private final PatientRecordRepository patientRecordRepository;
 
     private final PatientHistoricDisassembler patientHistoricDisassembler;
     private final PatientHistoricAssembler patientHistoricAssembler;
@@ -91,6 +89,12 @@ public class PatientHistoricService {
 
         var admitPatient = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
         admitPatient.setWorker(worker);
+
+        var patientRecord = new PatientRecord();
+        patientRecord.setPatientHistoric(patientHistoricDomain);
+        patientRecord.setWorker(worker);
+
+        patientRecordRepository.save(patientRecord);
 
         var patientHistoricModel = patientHistoricAssembler.toModel(admitPatient);
         var patientModel = patientAssembler.toModel(patient);
