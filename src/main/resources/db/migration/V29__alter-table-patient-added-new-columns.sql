@@ -1,0 +1,17 @@
+ALTER TABLE patient
+ADD COLUMN cpf VARCHAR(11) DEFAULT 0,
+ADD COLUMN gender VARCHAR(1) DEFAULT 'M',
+ADD COLUMN registration_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN date_of_birth DATETIME,
+ADD COLUMN father VARCHAR(60),
+ADD COLUMN mother VARCHAR(60),
+ADD COLUMN nationality VARCHAR(20) DEFAULT 'Brasileiro',
+ADD COLUMN cell_phone VARCHAR(11),
+ADD COLUMN phone VARCHAR(10),
+ADD COLUMN address_street VARCHAR(30),
+ADD COLUMN address_number VARCHAR(4),
+ADD COLUMN address_neighborhood VARCHAR(30),
+ADD COLUMN address_city VARCHAR(20),
+ADD COLUMN address_state VARCHAR(20),
+ADD COLUMN address_complement VARCHAR(20),
+ADD COLUMN observation VARCHAR(120);
