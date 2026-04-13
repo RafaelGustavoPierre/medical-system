@@ -1,0 +1,1 @@
+ALTER TABLE patient ADD CONSTRAINT uk_patient_cpf UNIQUE (cpf);
