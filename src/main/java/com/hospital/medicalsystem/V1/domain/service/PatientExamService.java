@@ -25,7 +25,7 @@ public class PatientExamService {
 
     private final static String WORKER_IS_NOT_DEPARTMENT = "Worker %s is not this department!";
 
-    private final PatientService patientService;
+    private final PatientServiceV1 patientServiceV1;
     private final ExamService examService;
     private final ExamRegistredService examRegistredService;
     private final WorkerService workerService;
@@ -39,7 +39,7 @@ public class PatientExamService {
     private final PatientAssembler patientAssembler;
 
     public PatientExamRegistredModel startExam(ExamRegistredInput examRegistredInput) {
-         var patient = patientService.findByPatientId(examRegistredInput.getPatient().getId());
+         var patient = patientServiceV1.findByPatientId(examRegistredInput.getPatient().getId());
          var patientHistory = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
 
         if (patientHistory == null) {
@@ -75,7 +75,7 @@ public class PatientExamService {
     }
 
     public ExamRegistred finishExam(Long patientId, Long examId) {
-        var patient = patientService.findByPatientId(patientId);
+        var patient = patientServiceV1.findByPatientId(patientId);
         var patientHistory = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
         ExamRegistred activeExam = examRegistredService.findActiveExam(patientHistory.getId(), examId);
 
@@ -84,7 +84,7 @@ public class PatientExamService {
     }
 
     public List<ExamRegistred> findPatientActiveExamList(Long patientId) {
-        var patient = patientService.findByPatientId(patientId);
+        var patient = patientServiceV1.findByPatientId(patientId);
 
 //        TODO Verificar se o paciente está HOSPITALIZED
         var patientHospitalized = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());

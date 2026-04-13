@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "PatientV1")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Patient {
 

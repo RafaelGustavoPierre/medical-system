@@ -5,7 +5,7 @@ import com.hospital.medicalsystem.V1.domain.service.PatientHistoricService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController("patientResourceV1")
 @RequestMapping("/patient")
 @RequiredArgsConstructor
 public class PatientResource {

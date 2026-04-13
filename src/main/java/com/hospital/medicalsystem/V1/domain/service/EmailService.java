@@ -15,7 +15,7 @@ public class EmailService {
 
     private final UtilsProperties utilsProperties;
 
-    private final PatientService patientService;
+    private final PatientServiceV1 patientServiceV1;
     private final SendEmailService emailService;
 
     private final PatientRecordRepository patientRecordRepository;
@@ -24,7 +24,7 @@ public class EmailService {
     private final ExamRegistredRepository examRegistredRepository;
 
     public void sendRecordToPatient(Long patientId) {
-        var patient = patientService.findByPatientId(patientId);
+        var patient = patientServiceV1.findByPatientId(patientId);
 
         var historic = patientHistoricRepository.findLatestByPatientId(patient.getId());
         if (historic == null) {

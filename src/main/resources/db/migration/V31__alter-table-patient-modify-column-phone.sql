@@ -1,0 +1,1 @@
+ALTER TABLE patient MODIFY COLUMN phone VARCHAR(11);

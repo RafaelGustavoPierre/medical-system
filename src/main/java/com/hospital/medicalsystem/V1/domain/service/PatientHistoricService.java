@@ -10,8 +10,6 @@ import com.hospital.medicalsystem.V1.api.model.input.WorkerReferenceInput;
 import com.hospital.medicalsystem.V1.domain.exception.EntityConflictException;
 import com.hospital.medicalsystem.V1.domain.model.*;
 import com.hospital.medicalsystem.V1.domain.repository.*;
-import com.hospital.medicalsystem.V1.domain.model.*;
-import com.hospital.medicalsystem.V1.domain.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PatientHistoricService {
 
-    private final PatientService patientService;
+    private final PatientServiceV1 patientServiceV1;
     private final PatientRecordService patientRecordService;
 
     private final ExamRegistredRepository examRegistredRepository;
@@ -38,7 +36,7 @@ public class PatientHistoricService {
     private final PatientAssembler patientAssembler;
 
     public MedicalRecord findPatientHistoric(Long id) {
-        Patient patient = patientService.findByPatientId(id);
+        Patient patient = patientServiceV1.findByPatientId(id);
 
         List<PatientHistoric> patientHistoricList = patientHistoricRepository.findListByPatientId(patient.getId());
 
@@ -68,7 +66,7 @@ public class PatientHistoricService {
     }
 
     public PatientRegistred admitPatient(Long id) {
-        var patient = patientService.findByPatientId(id);
+        var patient = patientServiceV1.findByPatientId(id);
 
         boolean patientIsHopitalized = patientHistoricRepository.existsActiveAdmissionByPatientId(patient.getId());
         if (patientIsHopitalized) {
@@ -109,7 +107,7 @@ public class PatientHistoricService {
 
     @Transactional
     public PatientRegistred dischargePatient(Long id) {
-        var patient = patientService.findByPatientId(id);
+        var patient = patientServiceV1.findByPatientId(id);
 
         PatientHistoric hospitalizedPatient = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
         if (hospitalizedPatient == null) {
