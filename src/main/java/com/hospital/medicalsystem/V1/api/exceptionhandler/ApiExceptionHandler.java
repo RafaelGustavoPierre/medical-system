@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import com.hospital.medicalsystem.V1.domain.exception.EntityConflictException;
-import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundException;
+import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundExceptionV1;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
@@ -50,8 +50,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<?> entityNotFoundException(EntityNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(EntityNotFoundExceptionV1.class)
+    public ResponseEntity<?> entityNotFoundExceptionV1(EntityNotFoundExceptionV1 ex, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ProblemType problemType = ProblemType.RESOURCE_NOT_FOUND;
         String detail = ex.getMessage();

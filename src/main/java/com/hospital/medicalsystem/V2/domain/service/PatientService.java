@@ -1,5 +1,6 @@
 package com.hospital.medicalsystem.V2.domain.service;
 
+import com.hospital.medicalsystem.V2.domain.exception.EntityNotFoundException;
 import com.hospital.medicalsystem.V2.domain.model.Patient;
 import com.hospital.medicalsystem.V2.domain.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,11 @@ public class PatientService {
     private final PatientRepository patientRepository;
 
     public Patient findPatientByCpf(String cpf) {
-        return this.patientRepository.findPatientByCpf(cpf);
+        var patient = this.patientRepository.findPatientByCpf(cpf);
+        if (patient == null) {
+            throw new EntityNotFoundException(String.format("Paciente de CPF: %s não foi encontrado.", cpf));
+        }
+        return patient;
     }
 
 }

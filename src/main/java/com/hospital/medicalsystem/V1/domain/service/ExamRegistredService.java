@@ -1,6 +1,6 @@
 package com.hospital.medicalsystem.V1.domain.service;
 
-import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundException;
+import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundExceptionV1;
 import com.hospital.medicalsystem.V1.domain.model.ExamRegistred;
 import com.hospital.medicalsystem.V1.domain.repository.ExamRegistredRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class ExamRegistredService {
     public ExamRegistred findActiveExam(Long patientHistoryId, Long examId) {
         var activeExam  = examRegistredRepository.findExamRegistredByPatientId(patientHistoryId, examId);
         if (activeExam == null) {
-            throw new EntityNotFoundException(ACTIVE_EXAM_NOT_FOUND);
+            throw new EntityNotFoundExceptionV1(ACTIVE_EXAM_NOT_FOUND);
         }
 
         return activeExam;

@@ -1,6 +1,6 @@
 package com.hospital.medicalsystem.V1.domain.service;
 
-import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundException;
+import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundExceptionV1;
 import com.hospital.medicalsystem.V1.domain.model.Worker;
 import com.hospital.medicalsystem.V1.domain.repository.WorkerRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class WorkerService {
 
     public Worker findWorkerById(Long id) {
         return workerRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(String.format(WORKER_NOT_FOUND, id)));
+                new EntityNotFoundExceptionV1(String.format(WORKER_NOT_FOUND, id)));
     }
 
 }

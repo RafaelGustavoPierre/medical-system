@@ -1,6 +1,6 @@
 package com.hospital.medicalsystem.V1.domain.service;
 
-import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundException;
+import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundExceptionV1;
 import com.hospital.medicalsystem.V1.domain.model.Exam;
 import com.hospital.medicalsystem.V1.domain.repository.ExamRepository;
 
@@ -18,7 +18,7 @@ public class ExamService {
 
     public Exam findByExamId(Long examId) {
         return examRepository.findById(examId).orElseThrow(() ->
-                new EntityNotFoundException(String.format(EXAM_NOT_FOUND, examId)));
+                new EntityNotFoundExceptionV1(String.format(EXAM_NOT_FOUND, examId)));
     }
 
 }

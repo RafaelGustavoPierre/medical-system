@@ -6,6 +6,8 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+  jackson:
+    default-property-inclusion: non_null
 
 # OCULTA OS LOGGS INICIAS DE CONEXAO DO MYSQL
 logging:

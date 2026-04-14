@@ -7,7 +7,7 @@ import com.hospital.medicalsystem.V1.api.model.PatientExamRegistredModel;
 import com.hospital.medicalsystem.V1.api.model.input.ExamRegistredInput;
 import com.hospital.medicalsystem.V1.api.model.input.PatientHistoricReferenceInput;
 import com.hospital.medicalsystem.V1.domain.exception.EntityConflictException;
-import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundException;
+import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundExceptionV1;
 import com.hospital.medicalsystem.V1.domain.model.Exam;
 import com.hospital.medicalsystem.V1.domain.model.ExamRegistred;
 import com.hospital.medicalsystem.V1.domain.model.Worker;
@@ -43,7 +43,7 @@ public class PatientExamService {
          var patientHistory = patientHistoricRepository.findHospitalizedByPatientId(patient.getId());
 
         if (patientHistory == null) {
-            throw new EntityNotFoundException(String.format("Paciente %s não está internado!", patient.getName()));
+            throw new EntityNotFoundExceptionV1(String.format("Paciente %s não está internado!", patient.getName()));
         }
 
         boolean examActive = examRegistredService.existsActiveExamByPatientAndExamId(patientHistory.getId(), examRegistredInput.getExam().getId());
@@ -95,7 +95,7 @@ public class PatientExamService {
 //        TODO Verificar se existe exames para fazer e retornar caso tenha
         var examsActive = examRegistredRepository.findActiveExamListByPatientId(patientHospitalized.getId());
         if (examsActive.isEmpty()) {
-            throw new EntityNotFoundException(String.format("O paciente %s não tem exames a serem feitos!", patient.getName()));
+            throw new EntityNotFoundExceptionV1(String.format("O paciente %s não tem exames a serem feitos!", patient.getName()));
         }
 
         return examsActive;

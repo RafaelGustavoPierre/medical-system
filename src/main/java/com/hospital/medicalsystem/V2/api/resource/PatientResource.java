@@ -1,4 +1,4 @@
-package com.hospital.medicalsystem.V2.api;
+package com.hospital.medicalsystem.V2.api.resource;
 
 import com.hospital.medicalsystem.V2.domain.model.Patient;
 import com.hospital.medicalsystem.V2.domain.service.PatientService;

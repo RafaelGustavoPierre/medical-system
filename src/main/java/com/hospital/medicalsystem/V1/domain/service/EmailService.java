@@ -1,7 +1,7 @@
 package com.hospital.medicalsystem.V1.domain.service;
 
 import com.hospital.medicalsystem.V1.core.utils.UtilsProperties;
-import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundException;
+import com.hospital.medicalsystem.V1.domain.exception.EntityNotFoundExceptionV1;
 import com.hospital.medicalsystem.V1.domain.repository.ExamRegistredRepository;
 import com.hospital.medicalsystem.V1.domain.repository.PatientHistoricRepository;
 import com.hospital.medicalsystem.V1.domain.repository.PatientRecordRepository;
@@ -28,7 +28,7 @@ public class EmailService {
 
         var historic = patientHistoricRepository.findLatestByPatientId(patient.getId());
         if (historic == null) {
-            throw new EntityNotFoundException(String.format("O Paciente %s não tem histórico médico", patient.getName()));
+            throw new EntityNotFoundExceptionV1(String.format("O Paciente %s não tem histórico médico", patient.getName()));
         }
 
         var recordPatient = patientRecordRepository.findByPatientHistoricId(historic.getId());
