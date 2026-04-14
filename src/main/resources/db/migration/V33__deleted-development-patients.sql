@@ -1,0 +1,2 @@
+DELETE FROM patient WHERE id=1;
+DELETE FROM patient WHERE id=2;

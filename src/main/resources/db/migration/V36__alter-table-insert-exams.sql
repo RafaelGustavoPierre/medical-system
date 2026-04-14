@@ -1,0 +1,20 @@
+DELETE FROM exam WHERE id = 1;
+DELETE FROM exam WHERE id = 2;
+DELETE FROM exam WHERE id = 3;
+DELETE FROM exam WHERE id = 4;
+
+INSERT INTO exam (id, name, description, department_id, price) VALUES (5,'Hemograma Completo', 'Avalia glóbulos vermelhos, glóbulos brancos e plaquetas.', 3, 12.50);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (6, 'Glicemia em Jejum', 'Mede a concentração de glicose no sangue após jejum.', 3, 8.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (7, 'Proteína C Reativa', 'Auxilia na identificação de processos inflamatórios.', 3, 35.70);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (8, 'Ureia', 'Avalia a função renal e o metabolismo de proteínas.', 3, 6.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (9, 'Creatinina', 'Exame laboratorial para avaliação da função renal.', 3, 7.50);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (10, 'Urina Tipo 1', 'Analisa características físicas, químicas e microscópicas da urina.', 3, 10.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (11, 'Troponina', 'Auxilia na avaliação de lesão no músculo cardíaco.', 1, 45.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (12, 'Eletrocardiograma de Emergência', 'Avalia a atividade elétrica do coração em atendimento agudo.', 1, 55.56);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (13, 'Gasometria Arterial', 'Mede oxigenação, ventilação e equilíbrio ácido-base.', 1, 38.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (14, 'Raio-X de Tórax', 'Exame de imagem para avaliação pulmonar e cardíaca.', 2, 50.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (15, 'Raio-X de Abdome', 'Exame radiológico para análise de estruturas abdominais.', 2, 60.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (16, 'Ultrassom de Abdome Total', 'Avalia fígado, vesícula, rins, pâncreas e baço.', 2, 105.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (17, 'Ultrassom Transvaginal', 'Exame de imagem ginecológica de alta definição.', 2, 75.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (18, 'Tomografia de Crânio', 'Exame de imagem para avaliação de trauma e alterações neurológicas.', 2, 280.00);
+INSERT INTO exam (id, name, description, department_id, price) VALUES (19, 'Mamografia', 'Exame radiológico para rastreamento e diagnóstico mamário.', 2, 75.00);

@@ -1,2 +1,13 @@
-UPDATE patient SET name = 'João Laranja Fina', email = 'rafaelrestapi+joao@gmail.com', cpf = '12345678901', gender = 'M', registration_date = '2026-04-08 19:00:04', date_of_birth = '1990-05-15 00:00:00', father = 'José Antônio Fina', mother = 'Maria Laranja Fina', nationality = 'Brasileiro', cell_phone = '43991234567', phone = '43999887766', address_street = 'Rua João Pessoa', address_number = '123', address_neighborhood = 'Centro', address_city = 'Londrina', address_state = 'PR', address_complement = 'Apto 101', observation = 'Paciente em acompanhamento ambulatorial' WHERE id = 1;
-UPDATE patient SET name = 'Maria Joana', email = 'rafaelrestapi+maria@gmail.com', cpf = '98765432109', gender = 'F', registration_date = '2026-04-08 19:00:04', date_of_birth = '1987-09-18 00:00:00', father = 'Carlos Eduardo Santos', mother = 'Ana Paula Ferreira', nationality = 'Brasileira', cell_phone = '43998765432', phone = '4333221100', address_street = 'Avenida Higienópolis', address_number = '456', address_neighborhood = 'Centro', address_city = 'Londrina', address_state = 'PR', address_complement = 'Bloco B, Apto 302', observation = 'Paciente em acompanhamento de rotina' WHERE id = 2;
+DELETE FROM patient;
+DELETE FROM health_insurance_patient;
+
+INSERT INTO patient (id, name, email, cpf, gender, registration_date, date_of_birth, father, mother, nationality, cell_phone, phone, address_street, address_number, address_neighborhood, address_city, address_state, address_complement, observation) VALUES
+(1, 'João Laranja Fina', 'rafaelrestapi+joao@gmail.com', '12345678901', 'M', '2026-04-08 19:00:04', '1990-05-15 00:00:00', 'José Antônio Fina', 'Maria Laranja Fina', 'Brasileiro', '43991234567', '43999887766', 'Rua João Pessoa', '123', 'Centro', 'Londrina', 'PR', 'Apto 101', 'Paciente em acompanhamento ambulatorial'),
+(2, 'Maria Joana', 'rafaelrestapi+maria@gmail.com', '98765432109', 'F', '2026-04-08 19:00:04', '1987-09-18 00:00:00', 'Carlos Eduardo Santos', 'Ana Paula Ferreira', 'Brasileira', '43998765432', '4333221100', 'Avenida Higienópolis', '456', 'Centro', 'Londrina', 'PR', 'Bloco B, Apto 302', 'Paciente em acompanhamento de rotina');
+
+INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (1, 1);
+INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (1, 2);
+INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (2, 1);
+INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (2, 3);
+INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (2, 4);
+INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (2, 5);
