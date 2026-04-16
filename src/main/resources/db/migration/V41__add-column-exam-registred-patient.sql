@@ -1,0 +1,2 @@
+ALTER TABLE exam_registred ADD COLUMN patient_id BIGINT;
+ALTER TABLE exam_registred MODIFY COLUMN patient_id BIGINT NOT NULL, ADD CONSTRAINT fk_exam_registred_patient FOREIGN KEY (patient_id) REFERENCES patient(id);

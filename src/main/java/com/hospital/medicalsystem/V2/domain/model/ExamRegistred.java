@@ -38,10 +38,13 @@ public class ExamRegistred {
     @JoinColumn(name = "worker_id", nullable = false)
     private Worker worker;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "healthInsurance_id", nullable = false)
     private HealthInsurance healthInsurance;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
 //    Remover do DB PatientHistoric
 }

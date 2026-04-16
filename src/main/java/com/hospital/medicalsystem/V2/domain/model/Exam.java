@@ -33,5 +33,4 @@ public class Exam {
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
-
 }
