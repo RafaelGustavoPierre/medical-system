@@ -36,20 +36,20 @@ public class ExamRegistredService {
         var registerExam = new ExamRegistred();
         if (scheduleExam.getHealthInsurance().getId() != null) {
             var patientWithHealthInsurance = healthInsurancePatientService.findByPatientIdAndHealthInsuranceId(patient.getId(), scheduleExam.getHealthInsurance().getId());
-            if (patientWithHealthInsurance != null && patientWithHealthInsurance.getHealthInsurance().getId() != 1) {
+
+            if (patientWithHealthInsurance.getHealthInsurance().getId() != 1) {
                 registerExam.setPrice(BigDecimal.ZERO);
                 registerExam.setHealthInsurance(patientWithHealthInsurance.getHealthInsurance());
             } else {
                 registerExam.setPrice(exam.getPrice());
                 registerExam.setHealthInsurance(healthInsuranceService.findHealthInsuranceById(1L));
             }
+
+            registerExam.setStartTime(OffsetDateTime.now());
+            registerExam.setExam(exam);
+            registerExam.setWorker(worker);
+            registerExam.setPatient(patient);
         }
-
-        registerExam.setStartTime(OffsetDateTime.now());
-        registerExam.setExam(exam);
-        registerExam.setWorker(worker);
-        registerExam.setPatient(patient);
-
         return examRegistredRepository.save(registerExam);
     }
 

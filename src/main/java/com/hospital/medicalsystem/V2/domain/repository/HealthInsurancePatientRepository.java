@@ -9,4 +9,6 @@ public interface HealthInsurancePatientRepository extends JpaRepository<HealthIn
 
     HealthInsurancePatient findByPatientIdAndHealthInsuranceId(Long patientId, Long healthInsuranceId);
 
+    boolean existsByPatientIdAndHealthInsuranceId(Long patientId, Long healthInsuranceId);
+
 }

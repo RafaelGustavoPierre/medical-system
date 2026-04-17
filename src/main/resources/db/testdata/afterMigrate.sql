@@ -1,4 +1,5 @@
 DELETE FROM health_insurance_patient;
+DELETE FROM exam_registred;
 DELETE FROM patient;
 
 ALTER TABLE health_insurance_patient AUTO_INCREMENT = 1;
