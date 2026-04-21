@@ -2,6 +2,7 @@ package com.hospital.medicalsystem.V2.domain.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.time.OffsetDateTime;
 @Setter
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder
 public class ExamRegistred {
 
     @Id
@@ -39,7 +41,7 @@ public class ExamRegistred {
     private Worker worker;
 
     @ManyToOne
-    @JoinColumn(name = "healthInsurance_id", nullable = false)
+    @JoinColumn(name = "healthInsurance_id")
     private HealthInsurance healthInsurance;
 
     @ManyToOne

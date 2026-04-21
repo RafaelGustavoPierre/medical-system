@@ -2,7 +2,7 @@ package com.hospital.medicalsystem.V2.api.resource;
 
 import com.hospital.medicalsystem.V2.api.model.input.ExamRegistredReferenceInput;
 import com.hospital.medicalsystem.V2.domain.model.ExamRegistred;
-import com.hospital.medicalsystem.V2.domain.service.ExamRegistredService;
+import com.hospital.medicalsystem.V2.domain.service.ExamRegisteredService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ExamResource {
 
-    private final ExamRegistredService examRegistredService;
+    private final ExamRegisteredService examRegisteredService;
 
     @PostMapping("/schedule")
     public ExamRegistred scheduleExam(@RequestBody @Valid ExamRegistredReferenceInput scheduleExam)  {
-        return examRegistredService.scheduleExam(scheduleExam);
+        return examRegisteredService.scheduleExam(scheduleExam);
     }
 
 }
