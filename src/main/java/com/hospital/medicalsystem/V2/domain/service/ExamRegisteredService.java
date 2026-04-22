@@ -3,6 +3,7 @@ package com.hospital.medicalsystem.V2.domain.service;
 import com.hospital.medicalsystem.V2.api.model.input.ExamRegistredReferenceInput;
 import com.hospital.medicalsystem.V2.api.resource.WorkerService;
 import com.hospital.medicalsystem.V2.domain.exception.ConflictException;
+import com.hospital.medicalsystem.V2.domain.exception.EntityNotFoundException;
 import com.hospital.medicalsystem.V2.domain.model.*;
 import com.hospital.medicalsystem.V2.domain.repository.ExamRegistredRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,11 @@ public class ExamRegisteredService {
         return examRegistredRepository.save(examRegistred);
     }
 
+    public ExamRegistred findExamRegisteredById(Long examId) {
+        return examRegistredRepository.findById(examId).orElseThrow(() -> new EntityNotFoundException(
+                String.format("O Exame de ID %s não foi encontrado", examId)));
+    }
+
     private HealthInsurance resolveHealthInsurance(Patient patient, ExamRegistredReferenceInput scheduleExam) {
         Long healthInsuranceId = scheduleExam.getHealthInsurance().getId();
 
@@ -58,8 +64,6 @@ public class ExamRegisteredService {
 
             return link != null ? link.getHealthInsurance() : healthInsuranceService.findHealthInsuranceById(1L);
     }
-
-    private ExamRegistered examRegistered;
 
     private BigDecimal resolvePrice(Exam exam, HealthInsurance healthInsurance) {
         return healthInsurance.getName().equals(PARTICULAR.getName()) ? exam.getPrice() : BigDecimal.ZERO;
