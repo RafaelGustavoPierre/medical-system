@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PatientIdReferenceInput {
+public class PatientCpfReferenceInput {
 
     @NotNull
     private String cpf;

@@ -1,7 +1,6 @@
 package com.hospital.medicalsystem.V2.domain.service;
 
 import com.hospital.medicalsystem.V2.api.model.input.ExamRegistredReferenceInput;
-import com.hospital.medicalsystem.V2.api.resource.WorkerService;
 import com.hospital.medicalsystem.V2.domain.exception.ConflictException;
 import com.hospital.medicalsystem.V2.domain.exception.EntityNotFoundException;
 import com.hospital.medicalsystem.V2.domain.model.*;
@@ -22,7 +21,6 @@ public class ExamRegisteredService {
     private final WorkerService workerService;
     private final ExamService examService;
     private final HealthInsuranceService healthInsuranceService;
-    private final HealthInsurancePatientService healthInsurancePatientService;
 
     private final ExamRegistredRepository examRegistredRepository;
 
@@ -35,7 +33,7 @@ public class ExamRegisteredService {
 
         validateWorkerCanPerformExam(worker, exam);
 
-        HealthInsurance healthInsurance = this.resolveHealthInsurance(patient, scheduleExam);
+        HealthInsurance healthInsurance = healthInsuranceService.resolveHealthInsurance(patient, scheduleExam);
 
         BigDecimal price = this.resolvePrice(exam, healthInsurance);
 
@@ -56,14 +54,7 @@ public class ExamRegisteredService {
                 String.format("O Exame de ID %s não foi encontrado", examId)));
     }
 
-    private HealthInsurance resolveHealthInsurance(Patient patient, ExamRegistredReferenceInput scheduleExam) {
-        Long healthInsuranceId = scheduleExam.getHealthInsurance().getId();
 
-        HealthInsurancePatient link = healthInsurancePatientService.findByPatientIdAndHealthInsuranceId(patient.getId(),
-                healthInsuranceId);
-
-            return link != null ? link.getHealthInsurance() : healthInsuranceService.findHealthInsuranceById(1L);
-    }
 
     private BigDecimal resolvePrice(Exam exam, HealthInsurance healthInsurance) {
         return healthInsurance.getName().equals(PARTICULAR.getName()) ? exam.getPrice() : BigDecimal.ZERO;

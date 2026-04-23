@@ -1,4 +1,4 @@
-package com.hospital.medicalsystem.V2.api.resource;
+package com.hospital.medicalsystem.V2.domain.service;
 
 import com.hospital.medicalsystem.V2.domain.exception.EntityNotFoundException;
 import com.hospital.medicalsystem.V2.domain.model.Worker;
