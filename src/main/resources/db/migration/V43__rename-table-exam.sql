@@ -1,0 +1,1 @@
+RENAME TABLE exam TO medical_service;

@@ -47,5 +47,5 @@ public class ConsultationService {
             System.out.println("O Profissional selecionado não é capacitado para esta função");
         }
     }
-    
+
 }

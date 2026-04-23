@@ -1,6 +1,6 @@
 DELETE FROM consultation;
 DELETE FROM health_insurance_patient;
-DELETE FROM exam_registred;
+DELETE FROM medical_service_registered;
 DELETE FROM patient;
 
 ALTER TABLE consultation AUTO_INCREMENT = 1;
@@ -16,6 +16,6 @@ INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (2
 INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (2, 4);
 INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (2, 5);
 
-INSERT INTO exam_registred (id, exam_id, price, start_time, end_time, worker_id, health_insurance_id, patient_id) VALUES(78, 5, 12.50, '2026-04-22 01:16:15.000', NULL, 5, 1, 2);
+INSERT INTO medical_service_registered (id, service_id, price, start_time, end_time, worker_id, health_insurance_id, patient_id) VALUES(78, 5, 12.50, '2026-04-22 01:16:15.000', NULL, 5, 1, 2);
 
 INSERT INTO consultation (id, patient_id, health_insurance_id, worker_id, date_registration, price, observation) VALUES(1, 2, 1, 5, '2026-04-22 19:17:36.000', 12.90, 'Reclamando de dor no PÉ');
