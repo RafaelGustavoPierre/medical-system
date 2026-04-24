@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class ExamReferenceInput {
+public class MedicalServiceReferenceInput {
 
     @NotNull
     private Long id;

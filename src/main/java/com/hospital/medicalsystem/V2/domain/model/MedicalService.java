@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-public class Exam {
+public class MedicalService {
 
     @Id
     private Long id;

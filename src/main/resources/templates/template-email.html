@@ -151,13 +151,13 @@
             </thead>
             <tbody>
             <#if exams?has_content>
-                <#list exams as exam>
+                <#list exams as medicalService>
                     <tr>
-                        <td>${exam.exam.name}</td>
-                        <td>${exam.exam.description}</td>
-                        <td>${exam.startTime?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}</td>
-                        <td>${exam.endTime?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}</td>
-                        <td>${exam.price?string.currency}</td>
+                        <td>${medicalService.medicalService.name}</td>
+                        <td>${medicalService.medicalService.description}</td>
+                        <td>${medicalService.startTime?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}</td>
+                        <td>${medicalService.endTime?date("yyyy-MM-dd'T'HH:mm:ss'Z'")?string("dd/MM/yyyy HH:mm")}</td>
+                        <td>${medicalService.price?string.currency}</td>
                     </tr>
                 </#list>
             <#else>

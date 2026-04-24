@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class ExamRegistred {
+public class MedicalServiceRegistered {
 
     @Id
     @EqualsAndHashCode.Include
@@ -30,8 +30,8 @@ public class ExamRegistred {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "exam_id", nullable = false)
-    private Exam exam;
+    @JoinColumn(name = "medical_service_id", nullable = false)
+    private MedicalService medicalService;
 
     @NotNull
     @ManyToOne
@@ -46,5 +46,4 @@ public class ExamRegistred {
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
-//    Remover do DB PatientHistoric
 }

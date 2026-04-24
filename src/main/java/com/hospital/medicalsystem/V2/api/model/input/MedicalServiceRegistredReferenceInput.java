@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 @ToString
 @Getter
 @Setter
-public class ExamRegistredReferenceInput {
+public class MedicalServiceRegistredReferenceInput {
 
     @NotNull
     @Valid
@@ -27,7 +27,7 @@ public class ExamRegistredReferenceInput {
 
     @NotNull
     @Valid
-    private ExamReferenceInput exam;
+    private MedicalServiceReferenceInput medicalService;
 
     @NotNull
     @Valid

@@ -143,14 +143,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="examination : ${historic.examRegistred}">
-                        <td th:text="${examination.exam.name}">Hemograma Completo</td>
-                        <td th:text="${examination.exam.description}">Avalia glóbulos vermelhos, glóbulos brancos e plaquetas.</td>
+                    <tr th:each="examination : ${historic.medicalServiceRegistered}">
+                        <td th:text="${examination.medicalService.name}">Hemograma Completo</td>
+                        <td th:text="${examination.medicalService.description}">Avalia glóbulos vermelhos, glóbulos brancos e plaquetas.</td>
                         <td th:text="${examination.startTimeString}">26/12/2024 08:00</td>
                         <td th:text="${examination.endTimeString}">26/12/2024 10:00</td>
                         <td th:text="${#numbers.formatCurrency(examination.price)}">R$ 0,00</td>
                     </tr>
-                    <tr th:if="${#lists.isEmpty(historic.examRegistred)}">
+                    <tr th:if="${#lists.isEmpty(historic.medicalServiceRegistered)}">
                         <td colspan="5" style="text-align: center;">Nenhum exame registrado!</td>
                     </tr>
                 </tbody>

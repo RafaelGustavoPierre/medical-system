@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-import static com.hospital.medicalsystem.V2.domain.model.ConsultationReferences.DOCTOR;
-import static com.hospital.medicalsystem.V2.domain.model.ConsultationReferences.NURSE;
+import static com.hospital.medicalsystem.V2.domain.model.WorkerOccupation.DOCTOR;
+import static com.hospital.medicalsystem.V2.domain.model.WorkerOccupation.NURSE;
 
 @Service
 @RequiredArgsConstructor

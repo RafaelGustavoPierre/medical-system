@@ -1,0 +1,1 @@
+ALTER TABLE medical_service_registered RENAME COLUMN service_id TO medical_service_id;

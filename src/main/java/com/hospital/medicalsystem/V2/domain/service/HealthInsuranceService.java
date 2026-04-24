@@ -1,6 +1,6 @@
 package com.hospital.medicalsystem.V2.domain.service;
 
-import com.hospital.medicalsystem.V2.api.model.input.ExamRegistredReferenceInput;
+import com.hospital.medicalsystem.V2.api.model.input.MedicalServiceRegistredReferenceInput;
 import com.hospital.medicalsystem.V2.domain.exception.EntityNotFoundException;
 import com.hospital.medicalsystem.V2.domain.model.HealthInsurance;
 import com.hospital.medicalsystem.V2.domain.model.HealthInsurancePatient;
@@ -20,7 +20,7 @@ public class HealthInsuranceService {
         return healthInsuranceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Convênio de ID: %s não foi encontrado.", id)));
     }
 
-    public HealthInsurance resolveHealthInsurance(Patient patient, ExamRegistredReferenceInput scheduleExam) {
+    public HealthInsurance resolveHealthInsurance(Patient patient, MedicalServiceRegistredReferenceInput scheduleExam) {
         Long healthInsuranceId = scheduleExam.getHealthInsurance().getId();
 
         HealthInsurancePatient link = healthInsurancePatientService.findByPatientIdAndHealthInsuranceId(patient.getId(),
