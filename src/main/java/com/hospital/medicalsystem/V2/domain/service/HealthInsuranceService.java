@@ -9,6 +9,8 @@ import com.hospital.medicalsystem.V2.domain.repository.HealthInsuranceRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class HealthInsuranceService {

@@ -1,5 +1,7 @@
 package com.hospital.medicalsystem.V2.api.resource;
 
+import com.hospital.medicalsystem.V2.api.assembler.PatientResumeAssembler;
+import com.hospital.medicalsystem.V2.api.model.PatientResumeModel;
 import com.hospital.medicalsystem.V2.domain.model.Patient;
 import com.hospital.medicalsystem.V2.domain.service.PatientService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +17,16 @@ public class PatientResource {
 
     private final PatientService patientService;
 
+    private final PatientResumeAssembler patientResumeAssembler;
+
     @GetMapping("/{cpf}")
     public Patient findPatientByCpf(@PathVariable String cpf) {
         return patientService.findPatientByCpf(cpf);
+    }
+
+    @GetMapping("/resume/{cpf}")
+    public PatientResumeModel findPatientResumeByCpf(@PathVariable String cpf) {
+        return patientResumeAssembler.toModel(patientService.findPatientByCpf(cpf));
     }
 
 }

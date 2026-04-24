@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PatientService {
 
+    public static final String PATIENT_CPF_NOT_FOUND = "Paciente de CPF: %s não foi encontrado.";
+
     private final PatientRepository patientRepository;
 
     public Patient findPatientByCpf(String cpf) {
         var patient = this.patientRepository.findPatientByCpf(cpf);
         if (patient == null) {
-            throw new EntityNotFoundException(String.format("Paciente de CPF: %s não foi encontrado.", cpf));
+            throw new EntityNotFoundException(String.format(PATIENT_CPF_NOT_FOUND, cpf));
         }
         return patient;
     }
