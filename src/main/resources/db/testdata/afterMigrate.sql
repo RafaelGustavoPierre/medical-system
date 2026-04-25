@@ -1,3 +1,4 @@
+DELETE FROM worker_health_insurance;
 DELETE FROM consultation;
 DELETE FROM health_insurance_patient;
 DELETE FROM medical_service_registered;
@@ -19,3 +20,10 @@ INSERT INTO health_insurance_patient (patient_id, health_insurance_id) VALUES (2
 INSERT INTO medical_service_registered (id, medical_service_id, price, start_time, end_time, worker_id, health_insurance_id, patient_id) VALUES(78, 5, 12.50, '2026-04-22 01:16:15.000', NULL, 5, 1, 2);
 
 INSERT INTO consultation (id, patient_id, health_insurance_id, worker_id, date_registration, price, observation) VALUES(1, 2, 1, 5, '2026-04-22 19:17:36.000', 12.90, 'Reclamando de dor no PÉ');
+
+INSERT INTO worker_health_insurance (worker_id, health_insurance_id) VALUES (1, 3);
+INSERT INTO worker_health_insurance (worker_id, health_insurance_id) VALUES (1, 1);
+INSERT INTO worker_health_insurance (worker_id, health_insurance_id) VALUES (1, 2);
+INSERT INTO worker_health_insurance (worker_id, health_insurance_id) VALUES (2, 4);
+INSERT INTO worker_health_insurance (worker_id, health_insurance_id) VALUES (2, 5);
+INSERT INTO worker_health_insurance (worker_id, health_insurance_id) VALUES (2, 1);

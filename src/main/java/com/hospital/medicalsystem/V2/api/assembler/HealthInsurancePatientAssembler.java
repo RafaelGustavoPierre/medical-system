@@ -1,8 +1,6 @@
 package com.hospital.medicalsystem.V2.api.assembler;
 
-import com.hospital.medicalsystem.V2.api.model.HealthInsuranceModel;
 import com.hospital.medicalsystem.V2.api.model.HealthInsurancePatientModel;
-import com.hospital.medicalsystem.V2.domain.model.HealthInsurance;
 import com.hospital.medicalsystem.V2.domain.model.HealthInsurancePatient;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
